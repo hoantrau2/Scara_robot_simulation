@@ -4,7 +4,7 @@ function plot_a1(handles,T,a,alpha,d,theta)
     L = a(1);
     W = 70; % W la y, L theo x, H theo z (do day)
     H1 = d(1) + 20;
-    H2 = d(1) - 20;
+    H2 = d(1) - 20;,
     opacity = str2double(handles.Opac_val.String);
     Yaw = theta(1)-pi/2;
 

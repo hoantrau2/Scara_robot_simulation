@@ -39,8 +39,9 @@ opacity = str2double(handles.Opac_val.String);
 x = r.*cos(u).*sin(v);
 y = r.*sin(u).*sin(v);
 z = r.*cos(v)+363;
- surf(handles.axes1,x,y,z,'EdgeColor',[05 0 0]/255,'FaceColor','none','FaceAlpha',opacity)
+surf(handles.axes1,x,y,z,'EdgeColor',[05 0 0]/255,'FaceColor','none','FaceAlpha',opacity)
 hold on
+r= 80;
 [u,v] = meshgrid(linspace(0,2*pi,50),linspace(acos(20/r),acos(-20/r),50));
 x = r.*cos(u).*sin(v);
 y = r.*sin(u).*sin(v);

@@ -34,7 +34,7 @@ function plot_frame_arm(a,alpha,d,theta,handles)
     end
 
     if handles.ChB_coor2.Value
-        plot_coordinate(handles,round(T(1,4,2),2),round(T(2,4,2),2),round(T(3,4,2),2),cos(theta(2)),sin(theta(2)),-1,2);
+        plot_coordinate(handles,round(T(1,4,2),2),round(T(2,4,2),2),round(T(3,4,2),2),cos(theta(2)),sin(theta(2)),1,2);
     end
 
     if handles.ChB_coor3.Value
