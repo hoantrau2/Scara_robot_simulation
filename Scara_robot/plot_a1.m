@@ -2,14 +2,14 @@ function plot_a1(handles,T,a,alpha,d,theta)
     L = a(1);
     W = 70; % W la y, L theo x, H theo z (do day)
     H1 = d(1) + 20;
-    H2 = d(1) - 20;,
+    H2 = d(1) - 20;
     opacity = str2double(handles.Opac_val.String);
     Color = [255, 140, 200]/255;
     Yaw = theta(1);
-  % Ma tr?n quay quanh truc Z mot goc Yaw
+  % Ma tran quay quanh truc Z mot goc Yaw
       Z_yaw = [cos(Yaw) -sin(Yaw) 0;
                sin(Yaw) cos(Yaw)  0;
-               0          0       1]
+               0          0       1];
    %Ve mat phang chieu cao z = H1
       A = [  0     0    L    L;
             W/2 -W/2 -W/2  W/2;
