@@ -66,8 +66,11 @@ d2 = str2double(handles.d2_val.String);
 %Creat DH Matrix
 a     = [a1    ;   a2   ;  0  ;    0   ];
 alpha = [0     ;   0    ;  0  ;   0   ];
-d     = [d1    ;   d2   ;  0  ;  -80   ];
+d     = [d1    ;   d2   ;  0  ;  -80   ]
 theta = [0     ;    0   ;  0  ;    0   ];
+
+
+
 % UIWAIT makes scara_robot wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 % Setup the robot arm
