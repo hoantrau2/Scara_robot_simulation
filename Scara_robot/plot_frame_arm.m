@@ -12,9 +12,9 @@ function plot_frame_arm(a,alpha,d,theta,handles)
     view(3);
 %%
     %all arm
-    plot_arm(handles,T,a,alpha,d,theta);
-    plot_a1(handles,T,a,alpha,d,theta);
-    plot_a2(handles,T,a,alpha,d,theta);
+    plot_arm_link_3(handles,T,a,alpha,d,theta);
+    plot_link_1(handles,T,a,alpha,d,theta);
+    plot_link_2(handles,T,a,alpha,d,theta);
 
 %% 
     %End effector
