@@ -1,0 +1,12 @@
+function plot_a2(handles,T,a,alpha,d,theta)
+x = round(T(1,4,1),2);%x, y la toa do goc cua truc xoyz1
+y = round(T(2,4,1),2);
+L = a(2); %khoang cach z1 va z2 theo truc x2
+W = 70; %do day theo chieu x, const
+H1 = d(1) + d(2) + 60; %be day tren
+H2 = d(1) + d(2) - 20; %be day duoi
+opacity = str2double(handles.Opac_val.String);
+Color = [255, 140, 200]/255;
+  Yaw = theta(2)-pi/2;
+  
+  
