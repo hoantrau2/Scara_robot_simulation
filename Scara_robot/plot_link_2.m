@@ -1,9 +1,8 @@
-function plot_link_2(handles,T,a,alpha,d,theta)
+function plot_link_2(handles,T,a,alpha,d,theta,opacity)
     L = -a(2); %khoang cach z1 va z2 theo truc x2
     W = 70; %do day theo chieu x, const
     H1 =  + 70; %be day tren
     H2 =  - 20; %be day duoi
-    opacity = str2double(handles.Opac_val.String);
     Color = [255, 140, 200]/255;
 
    %Ve mat phang chieu cao z = H1

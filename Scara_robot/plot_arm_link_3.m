@@ -1,11 +1,10 @@
-function plot_arm_link_3(handles,T,a,alpha,d,theta)
+function plot_arm_link_3(handles,T,a,alpha,d,theta,opacity)
 %%
 %BASE
 x = 0;
 y = 0;
 z = 0;
 R1 = 250;
-opacity = str2double(handles.Opac_val.String);
 th = 0:pi/3:2*pi;
 a = R1*cos(th);
 b = R1*sin(th);
@@ -19,19 +18,16 @@ x = 0;
 y = 0;
 z = 50;
 R1 = 80;
-opacity = str2double(handles.Opac_val.String);
 th = 0:pi/25:2*pi;
 a = R1*cos(th);
 b = R1*sin(th);
-
- surf(handles.axes1, [a;a]+x, [b;b]+y, [z*ones(1, size(th, 2)); ones(1, size(th, 2))*(d(1)-20)], 'FaceColor',[0 178 238]/255, 'EdgeColor', 'none', 'FaceAlpha', opacity)
- fill3(handles.axes1, a+x, b+y, z*ones(1, size(th, 2)),[0 178 238]/255, 'FaceAlpha', opacity);
- fill3(handles.axes1, a+x, b+y, (d(1)-20)*ones(1, size(th, 2)),[0 178 238]/255, 'FaceAlpha', opacity);
+surf(handles.axes1, [a;a]+x, [b;b]+y, [z*ones(1, size(th, 2)); ones(1, size(th, 2))*(d(1)-20)], 'FaceColor',[0 178 238]/255, 'EdgeColor', 'none', 'FaceAlpha', opacity)
+fill3(handles.axes1, a+x, b+y, z*ones(1, size(th, 2)),[0 178 238]/255, 'FaceAlpha', opacity);
+fill3(handles.axes1, a+x, b+y, (d(1)-20)*ones(1, size(th, 2)),[0 178 238]/255, 'FaceAlpha', opacity);
 
 %%
 %Joint 1
 r= 80;
-opacity = str2double(handles.Opac_val.String);
 [u,v] = meshgrid(linspace(0,2*pi,25),linspace(0,acos(30/r),50));
 x = r.*cos(u).*sin(v);
 y = r.*sin(u).*sin(v);
@@ -51,7 +47,6 @@ x = T(1,4,1);
 y = T(2,4,1);
 z = T(3,4,1);
 R1 = 50;
-opacity = str2double(handles.Opac_val.String);
 th = 0:pi/25:2*pi;
 a = R1*cos(th);
 b = R1*sin(th);
@@ -64,7 +59,6 @@ fill3(handles.axes1, a+x, b+y, (z-40)*ones(1, size(th, 2)),[0 178 238]/255, 'Fac
 %%
 %Joint 2
 r= 50;
-opacity = str2double(handles.Opac_val.String);
 [u,v] = meshgrid(linspace(0,2*pi,25),linspace(0,acos(10/r),50));
 x = r.*cos(u).*sin(v) + round(T(1,4,1),2);
 y = r.*sin(u).*sin(v) + round(T(2,4,1),2);
@@ -77,7 +71,6 @@ x = T(1,4,3);
 y = T(2,4,3);
 z = T(3,4,3);
 R1 = 20;
-opacity = str2double(handles.Opac_val.String);
 th = 0:pi/30:2*pi;
 a = R1*cos(th);
 b = R1*sin(th);
@@ -91,11 +84,9 @@ x = T(1,4,2);
 y = T(2,4,2);
 z = T(3,4,2);
 R1 = 30;
-opacity = str2double(handles.Opac_val.String);
 th = 0:pi/30:2*pi;
 a = R1*cos(th);
 b = R1*sin(th);
-
  surf(handles.axes1, [a;a]+x, [b;b]+y, [(z + 20)*ones(1, size(th, 2)); ones(1, size(th, 2))*(z + 100)], 'FaceColor',[255 165 79]/255, 'EdgeColor', 'none', 'FaceAlpha', opacity)
  surf(handles.axes1, [a;a]+x, [b;b]+y, [(z - 20)*ones(1, size(th, 2)); ones(1, size(th, 2))*(z + 20)], 'FaceColor',[255, 140, 200]/255, 'EdgeColor', 'none', 'FaceAlpha', opacity)
  fill3(handles.axes1, a+x, b+y, (z + 20)*ones(1, size(th, 2)),'black', 'FaceAlpha', opacity);
@@ -107,7 +98,6 @@ x = T(1,4,3);
 y = T(2,4,3);
 z = T(3,4,3);
 R1 = 20;
-opacity = str2double(handles.Opac_val.String);
 th = 0:pi/30:2*pi;
 a = R1*cos(th);
 b = R1*sin(th);

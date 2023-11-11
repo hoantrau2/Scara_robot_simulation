@@ -1,11 +1,9 @@
-function plot_link_1(handles,T,a,alpha,d,theta)
+function plot_link_1(handles,T,a,alpha,d,theta,opacity)
     L = -a(1);
     W = 70; % W la y, L theo x, H theo z (do day)
     H1 =  + 20; 
     H2 =  - 20;
-    opacity = str2double(handles.Opac_val.String);
     Color = [255, 140, 200]/255;
-    
    %Ve mat phang chieu cao z = H1
       A = [  0     0    L    L;
             W/2 -W/2 -W/2  W/2;
