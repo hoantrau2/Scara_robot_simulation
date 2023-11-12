@@ -22,7 +22,7 @@ function varargout = scara_robot(varargin)
 
 % Edit the above text to modify the response to help scara_robot
 
-% Last Modified by GUIDE v2.5 12-Nov-2023 10:16:20
+% Last Modified by GUIDE v2.5 13-Nov-2023 05:55:39
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -512,7 +512,7 @@ sub_theta(4) = sub_theta(4)+(pre_theta4 - theta(4))/velocity;
 pause(0.001);
 plot_frame_arm(a,alpha,sub_d,sub_theta,handles,opacity);
 end
-msgbox('FInished', 'Notice', 'modal');
+msgbox('Finished moving', 'Notice', 'modal');
 theta = sub_theta;
 d = sub_d; 
 
@@ -539,3 +539,10 @@ function velocity_rate_box_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in pushbutton5.
+function pushbutton5_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
