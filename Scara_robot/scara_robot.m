@@ -22,7 +22,7 @@ function varargout = scara_robot(varargin)
 
 % Edit the above text to modify the response to help scara_robot
 
-% Last Modified by GUIDE v2.5 11-Nov-2023 22:41:00
+% Last Modified by GUIDE v2.5 12-Nov-2023 10:16:20
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -69,6 +69,10 @@ d     = [d1    ;   d2   ;  0  ;  -80   ];
 theta = [0     ;    0   ;  0  ;    0   ];
 opacity = str2double(handles.Opac_val.String);
 Forward_button_Callback(hObject, eventdata, handles);
+
+
+
+ 
 
 
 
@@ -475,7 +479,7 @@ theta(2) = wrapTo360(handles.sliderTheta2.Value)*pi/180;
 d(3) = -(handles.slider3.Value);
 theta(4) = wrapTo360(handles.sliderTheta4.Value)*pi/180;
 %plot arm
-plot_frame_arm(a,alpha,d,theta,handles,opacity);
+ plot_frame_arm(a,alpha,d,theta,handles,opacity);
 % handles    structure with handles and user data (see GUIDATA)
 
 
@@ -490,6 +494,7 @@ global pre_theta1;
 global pre_theta2;
 global pre_theta4;
 global pre_d3;
+global velocity;
 global a alpha d theta opacity;
  sub_theta = theta;
  sub_d = d; 
@@ -498,13 +503,39 @@ global a alpha d theta opacity;
  pre_theta2 = wrapTo360(handles.sliderTheta2.Value)*pi/180;
  pre_theta4 = wrapTo360(handles.sliderTheta4.Value)*pi/180;
  pre_d3 = (handles.slider3.Value);
-for i= 1:20
-sub_theta(1) = sub_theta(1)+(pre_theta1 - theta(1))/20;
-sub_theta(2) = sub_theta(2)+(pre_theta2 - theta(2))/20;
-sub_d(3) = sub_d(3)+(-pre_d3 - d(3))/20;
-sub_theta(4) = sub_theta(4)+(pre_theta4 - theta(4))/20;
+ velocity = str2double(handles.velocity_rate_box.String);
+for i= 1:velocity
+sub_theta(1) = sub_theta(1)+(pre_theta1 - theta(1))/velocity;
+sub_theta(2) = sub_theta(2)+(pre_theta2 - theta(2))/velocity;
+sub_d(3) = sub_d(3)+(-pre_d3 - d(3))/velocity;
+sub_theta(4) = sub_theta(4)+(pre_theta4 - theta(4))/velocity;
+pause(0.001);
 plot_frame_arm(a,alpha,sub_d,sub_theta,handles,opacity);
 end
+msgbox('FInished', 'Notice', 'modal');
 theta = sub_theta;
 d = sub_d; 
 
+
+
+function velocity_rate_box_Callback(hObject, eventdata, handles)
+% hObject    handle to velocity_rate_box (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of velocity_rate_box as text
+%        str2double(get(hObject,'String')) returns contents of velocity_rate_box as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function velocity_rate_box_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to velocity_rate_box (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
