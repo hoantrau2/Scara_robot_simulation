@@ -545,4 +545,11 @@ end
 function pushbutton5_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton5 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
+global a alpha d theta opacity;
+theta(1) = wrapTo360(handles.sliderTheta1.Value)*pi/180;
+theta(2) = wrapTo360(handles.sliderTheta2.Value)*pi/180;
+d(3) = -(handles.slider3.Value);
+theta(4) = wrapTo360(handles.sliderTheta4.Value)*pi/180;
+%plot arm
+ plot_frame_arm(a,alpha,d,theta,handles,opacity);
 % handles    structure with handles and user data (see GUIDATA)
