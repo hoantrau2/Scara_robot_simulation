@@ -22,7 +22,7 @@ function varargout = scara_robot(varargin)
 
 % Edit the above text to modify the response to help scara_robot
 
-% Last Modified by GUIDE v2.5 03-Dec-2023 14:47:44
+% Last Modified by GUIDE v2.5 03-Dec-2023 16:05:06
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -218,7 +218,8 @@ end
 
 % --- Executes on button press in Forward_button.
 function Forward_button_Callback(hObject, eventdata, handles)
-global a alpha d theta opacity T;
+global a alpha d theta opacity;
+[theta, d] = Forward_Kinematics(a,alpha,d,theta,handles,opacity);
 
 
 function velocity_rate_box_Callback(hObject, eventdata, handles)
@@ -227,11 +228,9 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-% --- Executes on button press in Inverse_Kinematics.
-function Inverse_Kinematics_Callback(hObject, eventdata, handles)
-% hObject    handle to Inverse_Kinematics (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-global a alpha d theta opacity;
+% --- Executes on button press in Inverse_button.
+function Inverse_button_Callback(hObject, eventdata, handles)
+global a alpha d theta opacity T;
 theta(1) = wrapTo360(handles.sliderTheta1.Value)*pi/180;
 theta(2) = wrapTo360(handles.sliderTheta2.Value)*pi/180;
 d(3) = -(handles.slider_d3.Value);

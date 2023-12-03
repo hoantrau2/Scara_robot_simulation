@@ -32,12 +32,12 @@ denominator = a(1)^2 + a(2)^2 + 2*a(1)*a(2)*cos(theta(2));
 s1 = (y*(a(1) + a(2)*cos(theta(2))) - x*a(2)*sin(theta(2)))/denominator;
 theta(1)  = atan2(s1,sqrt(1-s1^2));
 if (theta(1) < -125*pi/180)
-    msgbox('The new theta1 is out of range theta(1) < -125', 'Notice', 'modal');
+    error('The new theta1 is out of range theta(1) < -125');
     theta(1) =  -125*pi/180;
     return
 end
 if (theta(1) > 125*pi/180)
-    msgbox('The new theta1 is out of range theta(1) > 125', 'Notice', 'modal');
+    error('The new theta1 is out of range theta(1) > 125');
     theta(1) =  125*pi/180;
     return
 end

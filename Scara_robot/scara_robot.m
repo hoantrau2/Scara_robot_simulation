@@ -22,7 +22,7 @@ function varargout = scara_robot(varargin)
 
 % Edit the above text to modify the response to help scara_robot
 
-% Last Modified by GUIDE v2.5 03-Dec-2023 14:47:44
+% Last Modified by GUIDE v2.5 03-Dec-2023 16:42:04
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -152,8 +152,9 @@ end
 
 % --- Executes on button press in Show_coordination.
 function Show_coordination_Callback(hObject, eventdata, handles)
-global a alpha d theta opacity
-plot_frame_arm(a,alpha,d,theta,handles,opacity);
+global a alpha d theta opacity T
+T = Transformation_matrix(a,alpha,d,theta,handles,opacity);
+plot_frame_arm(a,alpha,d,theta,handles,opacity,T);
 
 % --- Executes on button press in ChB_WoSp.
 function ChB_WoSp_Callback(hObject, eventdata, handles)
@@ -218,7 +219,7 @@ end
 
 % --- Executes on button press in Forward_button.
 function Forward_button_Callback(hObject, eventdata, handles)
-global a alpha d theta opacity T;
+global a alpha d theta opacity;
 [theta, d] = Forward_Kinematics(a,alpha,d,theta,handles,opacity);
 
 
@@ -228,15 +229,11 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-% --- Executes on button press in Inverse_Kinematics.
-function Inverse_Kinematics_Callback(hObject, eventdata, handles)
-% hObject    handle to Inverse_Kinematics (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-global a alpha d theta opacity;
-theta(1) = wrapTo360(handles.sliderTheta1.Value)*pi/180;
-theta(2) = wrapTo360(handles.sliderTheta2.Value)*pi/180;
-d(3) = -(handles.slider_d3.Value);
-theta(4) = wrapTo360(handles.sliderTheta4.Value)*pi/180;
-%plot arm
- plot_frame_arm(a,alpha,d,theta,handles,opacity);
-% handles    structure with handles and user data (see GUIDATA)
+% --- Executes on button press in Inverse_button.
+function Inverse_button_Callback(hObject, eventdata, handles)
+global a alpha d theta opacity T;
+yaw = str2double(handles.Yaw_value.String)*pi/180;
+x = str2double(handles.Pos_X.String);
+y = str2double(handles.Pos_Y.String);
+z = str2double(handles.Pos_Z.String);
+T = Inverse_Kinematics(a,alpha,d,theta,yaw,x,y,z,handles,opacity);
