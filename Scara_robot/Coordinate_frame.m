@@ -1,4 +1,4 @@
-function plot_coordinate(handles,x,y,z,x_dir,y_dir,z_dir,num)
+function Coordinate_frame(handles,x,y,z,x_dir,y_dir,z_dir,num)
 % x,y,z: toa do bat dau cua he toa do
 % x_dir, y_dir, z_dir: huong cua truc toa do tuong ung
 % num: so thu tu cua he truc toa do

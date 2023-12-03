@@ -154,7 +154,7 @@ end
 function Show_coordination_Callback(hObject, eventdata, handles)
 global a alpha d theta opacity T
 T = Transformation_matrix(a,alpha,d,theta,handles,opacity);
-plot_frame_arm(a,alpha,d,theta,handles,opacity,T);
+Draw_robot(a,alpha,d,theta,handles,opacity,T);
 
 % --- Executes on button press in ChB_WoSp.
 function ChB_WoSp_Callback(hObject, eventdata, handles)

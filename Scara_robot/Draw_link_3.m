@@ -1,4 +1,4 @@
-function plot_arm_link_3(handles,T,a,alpha,d,theta,opacity)
+function Draw_link_3(handles,T,a,alpha,d,theta,opacity)
 %%
 %BASE
 x = 0;

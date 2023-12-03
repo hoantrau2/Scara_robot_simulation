@@ -15,7 +15,7 @@ sub_d(3) = sub_d(3)+(-pre_d3 - d(3))/velocity;
 sub_theta(4) = sub_theta(4)+(pre_theta4 - theta(4))/velocity;
 pause(0.001);
 T = Transformation_matrix(a,alpha,sub_d,sub_theta,handles,opacity);
-plot_frame_arm(a,alpha,sub_d,sub_theta,handles,opacity,T);
+Draw_robot(a,alpha,sub_d,sub_theta,handles,opacity,T);
 %In a Scara robot, only 4 parameters are of interest: X, Y, Z, and Yaw. 
 %In this case, Roll and Pitch are both equal to zero
 handles.Pos_X.String = num2str(round(T(1,4,4),3));

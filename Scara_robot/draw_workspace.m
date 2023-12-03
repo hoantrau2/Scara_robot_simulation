@@ -1,4 +1,4 @@
-function draw_workspace()
+function Draw_workspace()
     t1 = linspace(-120, 120,1000)*pi/180;
     x1 = (450+400)*cos(t1)+0;
     y1 = (450+400)*sin(t1)+0;

@@ -49,10 +49,9 @@ end
    R_4to3 = inv(T(1:3, 1:3, 3))*R_4to0;
    theta(4) = atan2(sqrt(1-R_4to3(1,1)^2),R_4to3(1,1));
 T_new = Transformation_matrix(a,alpha,d,theta,handles,opacity);
-plot_frame_arm(a,alpha,d,theta,handles,opacity,T_new);
+Draw_robot(a,alpha,d,theta,handles,opacity,T_new);
 handles.Theta1_val.String = num2str(round(theta(1),3));handles.sliderTheta1.Value = str2double(handles.Theta1_val.String);
 handles.Theta2_val.String = num2str(round(theta(2),3));handles.sliderTheta2.Value = str2double(handles.Theta2_val.String);
 handles.d3_val.String = num2str(round(d(3),3));handles.slider_d3.Value = str2double(handles.d3_val.String);
 handles.Theta4_val.String = num2str(round(theta(4),3));handles.sliderTheta4.Value = str2double(handles.Theta4_val.String);
-
 end
