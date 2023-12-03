@@ -22,7 +22,7 @@ function varargout = scara_robot(varargin)
 
 % Edit the above text to modify the response to help scara_robot
 
-% Last Modified by GUIDE v2.5 03-Dec-2023 16:42:04
+% Last Modified by GUIDE v2.5 04-Dec-2023 03:24:30
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -56,7 +56,9 @@ handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
-
+set(handles.Trajectory_table, 'visible', 'off');
+set(handles.End_effector_table, 'visible', 'off');
+% set(handles.Show_Joints_table, 'visible', 'on');
 global a alpha d theta opacity T;
 a1 = str2double(handles.a1_val.String);
 a2 = str2double(handles.a2_val.String);
@@ -156,12 +158,12 @@ global a alpha d theta opacity T
 T = Transformation_matrix(a,alpha,d,theta,handles,opacity);
 Draw_robot(a,alpha,d,theta,handles,opacity,T);
 
-% --- Executes on button press in ChB_WoSp.
-function ChB_WoSp_Callback(hObject, eventdata, handles)
-% hObject    handle to ChB_WoSp (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-% Hint: get(hObject,'Value') returns toggle state of ChB_WoSp
+% --- Executes on button press in Show_WS.
+function Show_WS_Callback(hObject, eventdata, handles)
+global a alpha d theta opacity T
+T = Transformation_matrix(a,alpha,d,theta,handles,opacity);
+Draw_robot(a,alpha,d,theta,handles,opacity,T);
+
 
 function a1_val_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
@@ -237,3 +239,142 @@ x = str2double(handles.Pos_X.String);
 y = str2double(handles.Pos_Y.String);
 z = str2double(handles.Pos_Z.String);
 T = Inverse_Kinematics(a,alpha,d,theta,yaw,x,y,z,handles,opacity);
+
+
+% --- Executes on button press in Trajectory_button.
+function Trajectory_button_Callback(hObject, eventdata, handles)
+set(handles.Trajectory_table, 'visible', 'on');
+set(handles.End_effector_table, 'visible', 'off');
+% set(handles.Show_Joints_table, 'visible', 'off');
+function End_effector_button_Callback(hObject, eventdata, handles)
+set(handles.Trajectory_table, 'visible', 'off');
+set(handles.End_effector_table, 'visible', 'on');
+% set(handles.Show_Joints_table, 'visible', 'off');
+% function Joint_button_Callback(hObject, eventdata, handles)
+% set(handles.Trajectory_table, 'visible', 'off');
+% set(handles.End_effector_table, 'visible', 'off');
+% set(handles.Show_Joints_table, 'visible', 'on');
+
+
+
+function q_max_value_Callback(hObject, eventdata, handles)
+% hObject    handle to q_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of q_max_value as text
+%        str2double(get(hObject,'String')) returns contents of q_max_value as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function q_max_value_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to q_max_value (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit34_Callback(hObject, eventdata, handles)
+% hObject    handle to edit34 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit34 as text
+%        str2double(get(hObject,'String')) returns contents of edit34 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit34_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit34 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit35_Callback(hObject, eventdata, handles)
+% hObject    handle to edit35 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit35 as text
+%        str2double(get(hObject,'String')) returns contents of edit35 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit35_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit35 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popupmenu4.
+function popupmenu4_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu4 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu4
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu4_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popupmenu5.
+function popupmenu5_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu5 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu5
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu5_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in Plot_button.
+function Plot_button_Callback(hObject, eventdata, handles)
+% hObject    handle to Plot_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of Plot_button

@@ -31,7 +31,7 @@ function Draw_robot(a,alpha,d,theta,handles,opacity, T)
         Coordinate_frame(handles,round(T(1,4,3),2),round(T(2,4,3),2),round(T(3,4,3),2),cos(theta(2)),sin(theta(2)),-1,3);
         Coordinate_frame(handles,round(T(1,4,4),2),round(T(2,4,4),2),round(T(3,4,4),2),cos(theta(4)),sin(theta(4)),-1,4); 
     end
-    if handles.ChB_WoSp.Value
+    if handles.Show_WS.Value
         Draw_workspace();
     end
 end
