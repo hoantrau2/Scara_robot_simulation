@@ -1,14 +1,14 @@
-function T_new = Inverse_kinematics(a,alpha,d,theta,handles,opacity,yaw,x,y,z,T)
+function T_new = Inverse_kinematics(a,alpha,d,theta,yaw,x,y,z,T)
 % calculate d3
-d3(3) = d(1) + d(2) - z;
-if (d3(3) < 0)
+d(3) = d(1) + d(2) - z;
+if (d(3) < 0)
     error('The new d(3) is out of range d3 <0');
-    d3(3)= 0;
+    d(3)= 0;
     return
 end 
-if ( d3(3) > 150)
+if ( d(3) > 150)
     error('The new d(3) is out of range d3 >150');
-    d3(3) = 150;
+    d(3) = 150;
     return
 end 
 

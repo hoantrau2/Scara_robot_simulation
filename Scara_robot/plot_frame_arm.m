@@ -1,6 +1,4 @@
-function plot_frame_arm(a,alpha,d,theta,handles,opacity)
-    global T;
-    T = Forward_Kinematics(a,alpha,d,theta,handles,opacity);
+function plot_frame_arm(a,alpha,d,theta,handles,opacity, T)
     cla(handles.axes1,'reset');
     hold on
     rotate3d(handles.axes1,'on')
@@ -26,7 +24,7 @@ function plot_frame_arm(a,alpha,d,theta,handles,opacity)
 
 %%
     %plot coordinate
-    if (handles.ChB_coor.Value ==1)
+    if (handles.Show_coordination.Value ==1)
         plot_coordinate(handles,0,0,0,1,1,1,0);
         plot_coordinate(handles,round(T(1,4,1),2),round(T(2,4,1),2),round(T(3,4,1),2),cos(theta(1)),sin(theta(1)),1,1);
         plot_coordinate(handles,round(T(1,4,2),2),round(T(2,4,2),2),round(T(3,4,2),2),cos(theta(2)),sin(theta(2)),1,2);

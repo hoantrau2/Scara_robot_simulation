@@ -219,7 +219,6 @@ end
 % --- Executes on button press in Forward_button.
 function Forward_button_Callback(hObject, eventdata, handles)
 global a alpha d theta opacity T;
-[theta, d] = Forward_Kinematics(a,alpha,d,theta,handles,opacity);
 
 
 function velocity_rate_box_Callback(hObject, eventdata, handles)
