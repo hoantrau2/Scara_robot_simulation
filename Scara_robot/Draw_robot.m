@@ -13,15 +13,6 @@ function Draw_robot(a,alpha,d,theta,handles,opacity, T)
     Draw_link_1(handles,T,a,alpha,d,theta,opacity);
     Draw_link_2(handles,T,a,alpha,d,theta,opacity);
     Draw_link_3(handles,T,a,alpha,d,theta,opacity);
-
-%% 
-    %End effector
-    plot3(handles.axes1,[(round(T(1,4,3),2) - (-30)*cos(theta(4))) round(T(1,4,3),2)],[(round(T(2,4,3),2) - (-30)*sin(theta(4))) round(T(2,4,3),2)],[d(1)+d(2)+d(3)+(-30) d(1)+d(2)+d(3)+(-30)],'green','linewidth',5);
-    plot3(handles.axes1,[(round(T(1,4,3),2) + (-30)*cos(theta(4))) round(T(1,4,3),2)],[(round(T(2,4,3),2) + (-30)*sin(theta(4))) round(T(2,4,3),2)],[d(1)+d(2)+d(3)+(-30) d(1)+d(2)+d(3)+(-30)],'green','linewidth',5);
-    plot3(handles.axes1,[(round(T(1,4,3),2) - (-30)*cos(theta(4))) (round(T(1,4,3),2) - (-30)*cos(theta(4)))],[(round(T(2,4,3),2) - (-30)*sin(theta(4))) (round(T(2,4,3),2) - (-30)*sin(theta(4)))],[d(1)+d(2)+d(3)+(-30) d(1)+d(2)+d(3)+(-50)+(-30)],'Color',[128 0 0]/255,'linewidth',5);
-    plot3(handles.axes1,[(round(T(1,4,3),2) + (-30)*cos(theta(4))) (round(T(1,4,3),2) + (-30)*cos(theta(4)))],[(round(T(2,4,3),2) + (-30)*sin(theta(4))) (round(T(2,4,3),2) + (-30)*sin(theta(4)))],[d(1)+d(2)+d(3)+(-30) d(1)+d(2)+d(3)+(-50)+(-30)],'Color',[128 0 0]/255,'linewidth',5);
-
-
 %%
     %plot coordinate
     if (handles.Show_coordination.Value ==1)

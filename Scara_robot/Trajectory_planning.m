@@ -1,7 +1,5 @@
 function Trajectory_planning(handles,a,alpha,d,theta)
 %%
-global a alpha d theta
-%%
     contents_1 = cellstr(get(handles.Path_Planning_select, 'String'));
     path_planning_type = contents_1{get(handles.Path_Planning_select, 'Value')};   
     contents_2 = cellstr(get(handles.Trajectory_select, 'String'));
