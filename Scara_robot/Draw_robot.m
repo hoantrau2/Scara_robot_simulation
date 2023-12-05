@@ -23,6 +23,6 @@ function Draw_robot(a,alpha,d,theta,handles,opacity, T)
         Coordinate_frame(handles,round(T(1,4,4),2),round(T(2,4,4),2),round(T(3,4,4),2),cos(theta(4)),sin(theta(4)),-1,4); 
     end
     if handles.Show_WS.Value
-        Draw_workspace();
+        Draw_workspace(a,d);
     end
 end

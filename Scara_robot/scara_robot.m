@@ -22,7 +22,7 @@ function varargout = scara_robot(varargin)
 
 % Edit the above text to modify the response to help scara_robot
 
-% Last Modified by GUIDE v2.5 04-Dec-2023 03:24:30
+% Last Modified by GUIDE v2.5 05-Dec-2023 19:03:57
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -378,3 +378,12 @@ function Plot_button_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of Plot_button
+
+
+% --- Executes on button press in update_button.
+function update_button_Callback(hObject, eventdata, handles)
+global a d ;
+a(1) = str2double(handles.a1_val.String);
+a(2) = str2double(handles.a2_val.String);
+d(1) = str2double(handles.d1_val.String);
+d(2) = str2double(handles.d2_val.String);
