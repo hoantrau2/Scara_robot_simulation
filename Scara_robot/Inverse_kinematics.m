@@ -54,7 +54,8 @@ end
              sin(yaw)      cos(yaw)    0;
              0             0           1];
    R_4to3 = inv(T(1:3, 1:3, 3))*R_4to0;
-theta(4) = atan2(R_4to3(2,1),R_4to3(1,1));
+   theta(4) = atan2(R_4to3(2,1),R_4to3(1,1));
+% theta(4) = yaw - theta(1) - theta(2);
 Infor_sub = [flag_error; theta(1);theta(2); d(3); theta(4)];
 d(3) = -d(3);
 T_new = Transformation_matrix(a,alpha,d,theta,handles,opacity);
