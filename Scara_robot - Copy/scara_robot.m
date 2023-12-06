@@ -22,7 +22,7 @@ function varargout = scara_robot(varargin)
 
 % Edit the above text to modify the response to help scara_robot
 
-% Last Modified by GUIDE v2.5 06-Dec-2023 23:59:30
+% Last Modified by GUIDE v2.5 07-Dec-2023 01:43:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -161,7 +161,7 @@ Draw_robot(a,alpha,d,theta,handles,opacity,T);
 % --- Executes on button press in Show_WS.
 function Show_WS_Callback(hObject, eventdata, handles)
 global a alpha d theta opacity T
-T = Transformation_matrix(a,alpha,d,theta);
+T = Transformation_matrix(a,alpha,d,theta,handles,opacity);
 Draw_robot(a,alpha,d,theta,handles,opacity,T);
 
 
