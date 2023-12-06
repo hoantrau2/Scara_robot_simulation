@@ -24,7 +24,6 @@ function [q_max, a1_xy, a3_xy, a1_z, a3_z, O_cir,r]= Path_Circular_Interpolation
     p2 = [p_x_mid p_y_mid p_z_mid];
 %%
     %Circle center point:
-    r = sqrt( (p_x - p_x_mid)^2 + (p_y - p_y_mid)^2 + (p_z - p_z_mid)^2);
     [O_cir,r,v1,v2] = circlefit3d(p1,p2,p3);
     a1_xy = atan2(p_y_old - O_cir(2) , p_x_old - O_cir(1));
     a3_xy = atan2(p_y - O_cir(2) , p_x - O_cir(1));
