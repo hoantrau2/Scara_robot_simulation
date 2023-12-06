@@ -1,15 +1,18 @@
-function T_new = Inverse_Kinematics(a,alpha,d,theta,yaw,x,y,z,handles,opacity)
+function [T_new, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,yaw,x,y,z,handles,opacity)
 T = Transformation_matrix(a,alpha,d,theta,handles,opacity);
+flag_error = 0;
 % calculate d3
 d(3) = d(1) + d(2) - z;
 if (d(3) < 0)
     msgbox('The new d(3) is out of range d3 <0', 'Notice', 'modal');
     d(3)= 0;
+    flag_error = 1;
     return
 end 
 if ( d(3) > 150)
     msgbox('The new d(3) is out of range d3 >150', 'Notice', 'modal');
     d(3) = 150;
+    flag_error = 1;
     return
 end 
 
@@ -19,11 +22,13 @@ theta(2) =  atan2(sqrt(1-c2^2),c2);
 if (theta(2) < -145*pi/180)
     msgbox('The new theta(2) is out of range theta(2) < -145', 'Notice', 'modal');
     theta(2) = -145*pi/180;
+    flag_error = 1;
     return
 end
 if (theta(2) > 145*pi/180)
     msgbox('The new theta(2) is out of range theta(2) > 145', 'Notice', 'modal');
     theta(2) = 145*pi/180;
+    flag_error = 1;
     return
 end
 
@@ -34,11 +39,13 @@ theta(1)  = atan2(s1,sqrt(1-s1^2));
 if (theta(1) < -125*pi/180)
     msgbox('The new theta1 is out of range theta(1) < -125', 'Notice', 'modal');
     theta(1) =  -125*pi/180;
+    flag_error = 1;
     return
 end
 if (theta(1) > 125*pi/180)
     msgbox('The new theta1 is out of range theta(1) > 125', 'Notice', 'modal');
     theta(1) =  125*pi/180;
+    flag_error = 1;
     return
 end
 
@@ -48,6 +55,7 @@ end
              0             0           1];
    R_4to3 = inv(T(1:3, 1:3, 3))*R_4to0;
 theta(4) = atan2(R_4to3(2,1),R_4to3(1,1));
+Infor_sub = [flag_error; theta(1);theta(2); d(3); theta(4)];
 d(3) = -d(3);
 T_new = Transformation_matrix(a,alpha,d,theta,handles,opacity);
 Draw_robot(a,alpha,d,theta,handles,opacity,T_new);

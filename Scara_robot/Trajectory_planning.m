@@ -1,21 +1,21 @@
-function Trajectory_planning(handles,a,alpha,d,theta)
+function Trajectory_planning(handles,a,alpha,d,theta,opacity)
 %%
-    contents_1 = cellstr(get(handles.Path_Planning_select, 'String'));
-    path_planning_type = contents_1{get(handles.Path_Planning_select, 'Value')};   
-    contents_2 = cellstr(get(handles.Trajectory_select, 'String'));
-    Trajectory_type = contents_2{get(handles.Trajectory_select, 'Value')};   
-    
-    if strcmp(path_planning_type,'Linear Interpolation')
-        [q_max,my_alpha,my_beta,x_sign,y_sign,z_sign,p_x_old,p_y_old,p_z_old]= PathPlanning(handles);
-    elseif strcmp(path_planning_type,'2D Circular Interpolation')
-        [q_max, a1, a3, r, O_cir] = PathPlanning3(handles);
-    elseif strcmp(path_planning_type,'3D Circular Interpolation')
-        [q_max, a1_xy, a3_xy, a1_z, a3_z, O_cir,r]= PathPlanning2(handles);
+    index_Trajectory = cellstr(get(handles.Trajectory_select, 'String'));
+    Trajectory_type = index_Trajectory{get(handles.Trajectory_select, 'Value')}; 
+    index_Path_planning = cellstr(get(handles.Path_Planning_select, 'String'));
+    Path_planning_type = index_Path_planning{get(handles.Path_Planning_select, 'Value')};   
+  
+    if strcmp(Path_planning_type,'Linear Interpolation')
+        [q_max, my_alpha, my_beta, p_sign, p_old]= Path_Linear_Interpolation(handles);
+    elseif strcmp(Path_planning_type,'Circular Interpolation 2D')
+        [q_max, a1, a3, r, O_cir] = Path_Circular_Interpolation_2D(handles);
+    elseif strcmp(Path_planning_type,'Circular Interpolation 3D')
+        [q_max, a1_xy, a3_xy, a1_z, a3_z, O_cir,r]= Path_Circular_Interpolation_3D(handles);
     end
     
-    v_max = str2double(get(handles.v_max_val,'String'));
-    a_max = str2double(get(handles.a_max_val,'String'));
-    handles.q_max_val.String  = num2str(round(q_max,2));
+    a_max = str2double(get(handles.a_max_value,'String'));
+    v_max = str2double(get(handles.v_max_value,'String'));
+    handles.q_max_value.String  = num2str(round(q_max,3));
 %% plot p, v, a
     q2dot =[];
     qdot = [];
@@ -39,7 +39,7 @@ function Trajectory_planning(handles,a,alpha,d,theta)
     d3_2dot = [];
 
     % define some axes
-    Define_axes(handles);
+    Config_axes(handles);
 
     if q_max ~= 0
 %% S curve
@@ -219,11 +219,11 @@ function Trajectory_planning(handles,a,alpha,d,theta)
                 Trajectory(handles,a,alpha,d,theta)   
             end
         end
-%% LSBP Trajectory   
-        if (strcmp(Trajectory_type,'LSBP'))
+%% Linear Trapezoid Trajectory   
+        if (strcmp(Trajectory_type,'Linear Trapezoid'))
             if (v_max <= sqrt(q_max*a_max))
                 tb = v_max/a_max;
-                tm = tb + (q_max - v_max*tb)/v_max;
+                tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
                 te = tb + tm;
                 N = 100;
                 t = linspace(0,te,N);
@@ -237,83 +237,83 @@ function Trajectory_planning(handles,a,alpha,d,theta)
                         qdot(i)  = v_max;
                         q2dot(i) = 0;
                     elseif t(i) <= te
-                        q(i) = v_max*tm  - 1/2*a_max*(t(i)-tm-tb)^2;
-                        qdot(i) = -a_max*(t(i)-te);
+                        q(i) = ( 1/2*a_max*tb^2 + v_max*(tm-tb) ) + v_max*(t(i)-tm) - 1/2*a_max*(t(i)-tm)^2;
+                        qdot(i) = v_max -a_max*(t(i)-tm);
                         q2dot(i) = -a_max;
                     end
                     time  = [time ; t(i)];
                 %Linear path planning
                     if strcmp(path_planning_type,'Linear Interpolation')
-                        % Calc and plot q_x, q_y, q_z
-                        q_x  = p_x_old + x_sign * q * sin(my_beta) * cos(my_alpha);
-                        q_y  = p_y_old + y_sign * q * sin(my_beta) * sin(abs(my_alpha));
-                        q_z  = p_z_old + z_sign * q * abs( cos(my_beta));
+                        % Calculate and plot q_x, q_y, q_z
+                        q_x  = p_old(1) + p_sign(1) * q * sin(my_beta) * cos(my_alpha); % my_alpha is always less than pi/2
+                        q_y  = p_old(2) + p_sign(2)* q * sin(my_beta) * sin(my_alpha);
+                        q_z  = p_old(3) + p_sign(3) * q * cos(my_beta);
 
-                        % Calc and plot q_x_dot, q_y_dot, q_z_dot
-                        q_x_dot  = x_sign * qdot * sin(my_beta) * cos(my_alpha);
-                        q_y_dot  = y_sign * qdot * sin(my_beta) * sin(abs(my_alpha));
-                        q_z_dot  = z_sign * qdot * abs( cos(my_beta));
+                        % Calculate and plot q_x_dot, q_y_dot, q_z_dot
+                        q_x_dot  = p_sign(1)* qdot * sin(my_beta) * cos(my_alpha);
+                        q_y_dot  = p_sign(2) * qdot * sin(my_beta) * sin(my_alpha);
+                        q_z_dot  = p_sign(3) * qdot * cos(my_beta);
 
-                        % Calc and plot q_x_2dot, q_y_2dot, q_z_2dot
-                        q_x_2dot  = x_sign * q2dot * sin(my_beta)* cos(my_alpha) ;
-                        q_y_2dot  = y_sign * q2dot * sin(my_beta) * sin(abs(my_alpha));
-                        q_z_2dot  = z_sign * q2dot * abs( cos(my_beta));
+                        % Calculate and plot q_x_2dot, q_y_2dot, q_z_2dot
+                        q_x_2dot  = p_sign(1) * q2dot * sin(my_beta)* cos(my_alpha) ;
+                        q_y_2dot  = p_sign(2) * q2dot * sin(my_beta) * sin(my_alpha);
+                        q_z_2dot  = p_sign(3) * q2dot *cos(my_beta);
 
-                 %2D circular path planing
-                    elseif strcmp(path_planning_type,'2D Circular Interpolation')
-                        % Calc and plot q_x, q_y, q_z
-                        th = q/q_max*(a3 - a1) + a1;
-                        q_x = O_cir(1) + r*cos(th);
-                        q_y = O_cir(2) + r*sin(th);
-                        q_z = O_cir(3) + r*sin(th)*0;
-
-                        % Calc and plot q_x_dot, q_y_dot, q_z_dot
-                        th_dot = qdot/q_max*(a3 - a1);
-                        q_x_dot = -r.*th_dot.*sin(th);
-                        q_y_dot =  r.*th_dot.*cos(th);
-                        q_z_dot = (th_dot.*r.*cos(th))*0;
-
-                        % Calc and plot q_x_2dot, q_y_2dot, q_z_2dot
-                        th_2dot = q2dot/q_max*(a3 - a1);
-                        q_x_2dot = r.*(th_2dot.*cos(th) - th_2dot.^2.*sin(th));
-                        q_y_2dot = (O_cir(1) + r*cos(th));
-                        q_z_2dot = (th_dot.*r.*cos(th))*0;
-
-                 %3D circular path planing
-                    elseif strcmp(path_planning_type,'3D Circular Interpolation')
-                        % Calc and plot q_x, q_y, q_z
-                        th   = q/q_max*(a3_xy - a1_xy) + a1_xy;
-                        th_1 = q/q_max*(a3_z - a1_z) + a1_z;
-                        q_x = O_cir(1) + r.*cos(th).*sin(th_1);
-                        q_y = O_cir(2) + r.*sin(th).*sin(th_1);
-                        q_z = O_cir(3) + r.*cos(th_1);                 
-
-                        % Calc and plot q_x_dot, q_y_dot, q_z_dot
-                        th_dot = qdot/q_max*(a3_xy - a1_xy);
-                        th_1_dot = qdot/q_max*(a3_z - a1_z);
-                        q_x_dot = r.*(-th_dot.*sin(th).*sin(th_1) + th_1_dot.*cos(th).*cos(th_1));
-                        q_y_dot = r.*(th_dot.*sin(th).*sin(th_1) + th_1_dot.*cos(th).*cos(th_1));
-                        q_z_dot = r.*th_1_dot.*cos(th_1);
-
-                        % Calc and plot q_x_2dot, q_y_2dot, q_z_2dot
-                        th_2dot = q2dot/q_max*(a3_xy - a1_xy);
-                        th_1_2dot = q2dot/q_max*(a3_z - a1_z);
-                        q_x_2dot = r.*(-th_dot.*(th_dot.*cos(th).*sin(th_1) + th_1_dot.*sin(th).*cos(th_1)) - th_2dot.*sin(th).*sin(th_1)...
-                            - th_1_dot.*(th_dot.*sin(th).*cos(th_1) + th_1_dot.*cos(th).*sin(th_1)) + th_1_2dot.*cos(th).*cos(th_1));
-                        q_y_2dot = r.*(th_dot.*(th_dot.*cos(th).*sin(th_1) + th_1_dot.*sin(th).*cos(th_1)) + th_2dot.*sin(th).*sin(th_1)...
-                            - th_1_dot.*(th_dot.*sin(th).*cos(th_1) + th_1_dot.*cos(th).*sin(th_1)) + th_1_2dot.*cos(th).*cos(th_1));
-                        q_z_2dot = r.*(th_1_2dot.*cos(th_1) - th_1_dot.^2.*sin(th_1)); 
+%                  %2D circular path planing
+%                     elseif strcmp(path_planning_type,'2D Circular Interpolation')
+%                         % Calc and plot q_x, q_y, q_z
+%                         th = q/q_max*(a3 - a1) + a1;
+%                         q_x = O_cir(1) + r*cos(th);
+%                         q_y = O_cir(2) + r*sin(th);
+%                         q_z = O_cir(3) + r*sin(th)*0;
+% 
+%                         % Calc and plot q_x_dot, q_y_dot, q_z_dot
+%                         th_dot = qdot/q_max*(a3 - a1);
+%                         q_x_dot = -r.*th_dot.*sin(th);
+%                         q_y_dot =  r.*th_dot.*cos(th);
+%                         q_z_dot = (th_dot.*r.*cos(th))*0;
+% 
+%                         % Calc and plot q_x_2dot, q_y_2dot, q_z_2dot
+%                         th_2dot = q2dot/q_max*(a3 - a1);
+%                         q_x_2dot = r.*(th_2dot.*cos(th) - th_2dot.^2.*sin(th));
+%                         q_y_2dot = (O_cir(1) + r*cos(th));
+%                         q_z_2dot = (th_dot.*r.*cos(th))*0;
+% 
+%                  %3D circular path planing
+%                     elseif strcmp(path_planning_type,'3D Circular Interpolation')
+%                         % Calc and plot q_x, q_y, q_z
+%                         th   = q/q_max*(a3_xy - a1_xy) + a1_xy;
+%                         th_1 = q/q_max*(a3_z - a1_z) + a1_z;
+%                         q_x = O_cir(1) + r.*cos(th).*sin(th_1);
+%                         q_y = O_cir(2) + r.*sin(th).*sin(th_1);
+%                         q_z = O_cir(3) + r.*cos(th_1);                 
+% 
+%                         % Calc and plot q_x_dot, q_y_dot, q_z_dot
+%                         th_dot = qdot/q_max*(a3_xy - a1_xy);
+%                         th_1_dot = qdot/q_max*(a3_z - a1_z);
+%                         q_x_dot = r.*(-th_dot.*sin(th).*sin(th_1) + th_1_dot.*cos(th).*cos(th_1));
+%                         q_y_dot = r.*(th_dot.*sin(th).*sin(th_1) + th_1_dot.*cos(th).*cos(th_1));
+%                         q_z_dot = r.*th_1_dot.*cos(th_1);
+% 
+%                         % Calc and plot q_x_2dot, q_y_2dot, q_z_2dot
+%                         th_2dot = q2dot/q_max*(a3_xy - a1_xy);
+%                         th_1_2dot = q2dot/q_max*(a3_z - a1_z);
+%                         q_x_2dot = r.*(-th_dot.*(th_dot.*cos(th).*sin(th_1) + th_1_dot.*sin(th).*cos(th_1)) - th_2dot.*sin(th).*sin(th_1)...
+%                             - th_1_dot.*(th_dot.*sin(th).*cos(th_1) + th_1_dot.*cos(th).*sin(th_1)) + th_1_2dot.*cos(th).*cos(th_1));
+%                         q_y_2dot = r.*(th_dot.*(th_dot.*cos(th).*sin(th_1) + th_1_dot.*sin(th).*cos(th_1)) + th_2dot.*sin(th).*sin(th_1)...
+%                             - th_1_dot.*(th_dot.*sin(th).*cos(th_1) + th_1_dot.*cos(th).*sin(th_1)) + th_1_2dot.*cos(th).*cos(th_1));
+%                         q_z_2dot = r.*(th_1_2dot.*cos(th_1) - th_1_dot.^2.*sin(th_1)); 
                     end
 
-                    [break_signal,theta1_new,theta2_new,theta4_new,d3_new] = Inverse_kinematics(handles,a,alpha,d,theta,q_x(end),q_y(end),q_z(end),0);
-                    if break_signal
-                        break
-                    end
+                    [T_new, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
+%                     if Infor_sub(1)
+%                         break
+%                     end
 
-                    theta1_ = [theta1_;rad2deg(theta1_new)];
-                    theta2_ = [theta2_;rad2deg(theta2_new)];
-                    theta4_ = [theta4_;rad2deg(theta4_new)];
-                    d3_ = [d3_;d3_new];
+                    theta1_ = [theta1_;rad2deg(Infor_sub(2))];
+                    theta2_ = [theta2_;rad2deg(Infor_sub(3))];
+                    theta4_ = [theta4_;rad2deg(Infor_sub(5))];
+                    d3_ = [d3_;Infor_sub(4)];
 
                     if i>1
                         theta1_dot = [theta1_dot; (theta1_(i)-theta1_(i-1))/te*N];
@@ -332,50 +332,51 @@ function Trajectory_planning(handles,a,alpha,d,theta)
                     pause(0.01);
     %%
     % plot 
-                    plot(handles.ax_q,time,q,'linewidth',2);
-                    grid(handles.ax_q,'on'); 
-                    plot(handles.ax_qdot,time,qdot,'linewidth',2);
-                    grid(handles.ax_qdot,'on'); 
-                    plot(handles.ax_q2dot,time,q2dot,'linewidth',2);
-                    grid(handles.ax_q2dot,'on'); 
+                    plot(handles.q_graph,time,q,'linewidth',2);
+                    grid(handles.q_graph,'on'); 
+                    plot(handles.q_dot_graph,time,qdot,'linewidth',2);
+                    grid(handles.q_dot_graph,'on'); 
+                    plot(handles.q_2dot_graph,time,q2dot,'linewidth',2);
+                    grid(handles.q_2dot_graph,'on'); 
 
-                    plot(handles.ax_q_x,time,q_x,'linewidth',2);
-                    grid(handles.ax_q_x,'on'); 
-                    plot(handles.ax_q_xdot,time,q_x_dot,'linewidth',2);
-                    grid(handles.ax_q_xdot,'on'); 
-                    plot(handles.ax_q_x2dot,time,q_x_2dot,'linewidth',2);
-                    grid(handles.ax_q_x2dot,'on'); 
+                    plot(handles.q_x,time,q_x,'linewidth',2);
+                    grid(handles.q_x,'on'); 
+                    plot(handles.v_x,time,q_x_dot,'linewidth',2);
+                    grid(handles.v_x,'on'); 
+                    plot(handles.a_x,time,q_x_2dot,'linewidth',2);
+                    grid(handles.a_x,'on'); 
 
-                    plot(handles.ax_q_y,time,q_y,'linewidth',2);
-                    grid(handles.ax_q_y,'on'); 
-                    plot(handles.ax_q_ydot,time,q_y_dot,'linewidth',2);
-                    grid(handles.ax_q_ydot,'on'); 
-                    plot(handles.ax_q_y2dot,time,q_y_2dot,'linewidth',2);
-                    grid(handles.ax_q_y2dot,'on'); 
+                    plot(handles.q_y,time,q_y,'linewidth',2);
+                    grid(handles.q_y,'on'); 
+                    plot(handles.v_y,time,q_y_dot,'linewidth',2);
+                    grid(handles.v_y,'on'); 
+                    plot(handles.a_y,time,q_y_2dot,'linewidth',2);
+                    grid(handles.a_y,'on'); 
 
-                    plot(handles.ax_q_z,time,q_z,'linewidth',2);
-                    grid(handles.ax_q_z,'on'); 
-                    plot(handles.ax_q_zdot,time,q_z_dot,'linewidth',2);
-                    grid(handles.ax_q_zdot,'on'); 
-                    plot(handles.ax_q_z2dot,time,q_z_2dot,'linewidth',2);
-                    grid(handles.ax_q_z2dot,'on'); 
+                    plot(handles.q_z,time,q_z,'linewidth',2);
+                    grid(handles.q_z,'on'); 
+                    plot(handles.v_z,time,q_z_dot,'linewidth',2);
+                    grid(handles.v_z,'on'); 
+                    plot(handles.a_z,time,q_z_2dot,'linewidth',2);
+                    grid(handles.a_z,'on'); 
 
-                    plot(handles.ax_theta1,time,theta1_,'linewidth',2);
-                    plot(handles.ax_theta2,time,theta2_,'linewidth',2);
-                    plot(handles.ax_theta4,time,theta4_,'linewidth',2);
-                    plot(handles.ax_d3,time,d3_,'linewidth',2);
+                    plot(handles.theta1,time,theta1_,'linewidth',2);
+                    plot(handles.theta2,time,theta2_,'linewidth',2);
+                    plot(handles.theta4,time,theta4_,'linewidth',2);
+                    plot(handles.d3,time,d3_,'linewidth',2);
 
-                    plot(handles.ax_theta1_dot,time(1:end-1),theta1_dot,'linewidth',2);
-                    plot(handles.ax_theta2_dot,time(1:end-1),theta2_dot,'linewidth',2);
-                    plot(handles.ax_theta4_dot,time(1:end-1),theta4_dot,'linewidth',2);
-                    plot(handles.ax_d3_dot,time(1:end-1),d3_dot,'linewidth',2);
+                    plot(handles.theta1_dot,time(1:end-1),theta1_dot,'linewidth',2);
+                    plot(handles.theta2_dot,time(1:end-1),theta2_dot,'linewidth',2);
+                    plot(handles.theta4_dot,time(1:end-1),theta4_dot,'linewidth',2);
+                    plot(handles.d3_dot,time(1:end-1),d3_dot,'linewidth',2);
 
-                    plot(handles.ax_theta1_2dot,time(1:end-2),theta1_2dot,'linewidth',2);
-                    plot(handles.ax_theta2_2dot,time(1:end-2),theta2_2dot,'linewidth',2);
-                    plot(handles.ax_theta4_2dot,time(1:end-2),theta4_2dot,'linewidth',2);
-                    plot(handles.ax_d3_2dot,time(1:end-2),d3_2dot,'linewidth',2);
+                    plot(handles.theta1_2dot,time(1:end-2),theta1_2dot,'linewidth',2);
+                    plot(handles.theta2_2dot,time(1:end-2),theta2_2dot,'linewidth',2);
+                    plot(handles.theta4_2dot,time(1:end-2),theta4_2dot,'linewidth',2);
+                    plot(handles.d3_2dot,time(1:end-2),d3_2dot,'linewidth',2);
 
-                    plot_frame_arm(a,alpha,d,theta,handles)
+                    T = Transformation_matrix(a,alpha,d,theta,handles,opacity);
+                    Draw_robot(a,alpha,d,theta,handles,opacity, T)
                     plot3(handles.axes1,q_x,q_y,q_z,'b','linewidth',2);
                 end
             else
@@ -384,6 +385,7 @@ function Trajectory_planning(handles,a,alpha,d,theta)
                 Trajectory(handles,a,alpha,d,theta)   
             end
         end
+        msgbox('Trajectory planning compeleted');
     end
-    msgbox('Trajectory planning compeleted');
+    
 end
