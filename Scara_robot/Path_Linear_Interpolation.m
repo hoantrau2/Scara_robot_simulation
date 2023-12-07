@@ -23,7 +23,7 @@ function [q_max, my_alpha, my_beta, p_sign, p_old]= Path_Linear_Interpolation(ha
     y_sign = -1 ;
       end
       
-      if p_z >= p_z_old
+                                 if p_z >= p_z_old
     z_sign =  1 ;
     else
     z_sign = -1 ;

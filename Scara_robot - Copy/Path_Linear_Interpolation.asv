@@ -75,6 +75,26 @@ function Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
     if q_max ~= 0
 %% S curve Trajectory 
  if (strcmp(Trajectory_type,'S_curve'))
+%             if (v_max <= sqrt(q_max*a_max))
+%                 tb = v_max/a_max;
+%                 tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
+%                 te = tb + tm;
+%                 N = 10;
+%                 t = linspace(0,te,N);
+%                 for i = 1:length(t)
+%                     if t(i) <= tb
+%                         q(i)     = 1/2*a_max*t(i)^2;
+%                         qdot(i)  = a_max*t(i);
+%                         q2dot(i) = a_max;
+%                     elseif t(i) <= tm
+%                         q(i)     = 1/2*a_max*tb^2 + v_max*(t(i)-tb);
+%                         qdot(i)  = v_max;
+%                         q2dot(i) = 0;
+%                     elseif t(i) <= te
+%                         q(i) = ( 1/2*a_max*tb^2 + v_max*(tm-tb) ) + v_max*(t(i)-tm) - 1/2*a_max*(t(i)-tm)^2;
+%                         qdot(i) = v_max -a_max*(t(i)-tm);
+%                         q2dot(i) = -a_max;
+%                     end
                      %Calulate profile
                 if (v_max <= sqrt(q_max*a_max/2))
                 t1 = v_max/a_max;
@@ -214,27 +234,58 @@ function Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
 
 %% Linear Trapezoid Trajectory   
         if (strcmp(Trajectory_type,'LSPB'))
-            %Calulate profile
-            if (v_max <= sqrt(q_max*a_max))
-                tb = v_max/a_max;
-                tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
-                te = tb + tm;
+%             if (v_max <= sqrt(q_max*a_max))
+%                 tb = v_max/a_max;
+%                 tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
+%                 te = tb + tm;
+%                 N = 10;
+%                 t = linspace(0,te,N);
+%                 for i = 1:length(t)
+%                     if t(i) <= tb
+%                         q(i)     = 1/2*a_max*t(i)^2;
+%                         qdot(i)  = a_max*t(i);
+%                         q2dot(i) = a_max;
+%                     elseif t(i) <= tm
+%                         q(i)     = 1/2*a_max*tb^2 + v_max*(t(i)-tb);
+%                         qdot(i)  = v_max;
+%                         q2dot(i) = 0;
+%                     elseif t(i) <= te
+%                         q(i) = ( 1/2*a_max*tb^2 + v_max*(tm-tb) ) + v_max*(t(i)-tm) - 1/2*a_max*(t(i)-tm)^2;
+%                         qdot(i) = v_max -a_max*(t(i)-tm);
+%                         q2dot(i) = -a_max;
+%                     end
+                     %Calulate profile
+                if (v_max <= sqrt(q_max*a_max/2))
+                t1 = v_max/a_max;
+                t2 = 2*t1;
+                t3 = q_max/v_max;
+                t4 = t3 + t1;
+                te = t3 + t2;
+                jerk = a_max/t1;
                 N = 10;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
-                    if t(i) <= tb
-                        q(i)     = 1/2*a_max*t(i)^2;
-                        qdot(i)  = a_max*t(i);
-                        q2dot(i) = a_max;
-                    elseif t(i) <= tm
-                        q(i)     = 1/2*a_max*tb^2 + v_max*(t(i)-tb);
+                    if t(i) <= t1
+                        q(i)     = jerk*t(i)^3/6;
+                        qdot(i)  = jerk*t(i)^2/2;
+                        q2dot(i) = jerk*t(i);
+                    elseif t(i) <= t2
+                        q(i)     = jerk*t1^3/6 + jerk*t1^2/2*(t(i)-t1) + a_max*(t(i)-t1)^2/2 - jerk*(t(i)-t1)^3/6;
+                        qdot(i)  = jerk*t1^2/2 + a_max*(t(i)-t1) - jerk*(t(i)-t1)^2/2;
+                        q2dot(i) = a_max - jerk*(t(i)-t1);
+                    elseif t(i) <= t3
+                        q(i)     = a_max*t1^2 + v_max*(t(i)-t2);
                         qdot(i)  = v_max;
                         q2dot(i) = 0;
+                    elseif t(i) <= t4
+                        q(i)     = a_max*t1^2 + v_max*(t3-t2) + v_max*(t(i)-t3) - jerk*(t(i)-t3)^3/6;
+                        qdot(i)  = v_max - jerk*(t(i)-t3)^2/2;
+                        q2dot(i) = -jerk*(t(i)-t3);
                     elseif t(i) <= te
-                        q(i) = ( 1/2*a_max*tb^2 + v_max*(tm-tb) ) + v_max*(t(i)-tm) - 1/2*a_max*(t(i)-tm)^2;
-                        qdot(i) = v_max -a_max*(t(i)-tm);
-                        q2dot(i) = -a_max;
-                    end          
+                        q(i)     = q_max - jerk*(te - t(i))^3/6;
+                        qdot(i)  = v_max - jerk*(t4-t3)^2/2 - a_max*(t(i)-t4) + jerk*(t(i)-t4)^2/2;
+                        q2dot(i) = -a_max + jerk*(t(i)-t4);
+                    end            
                         % Calculate and plot q_x, q_y, q_z
                         q_x  = p_old(1) + p_sign(1) * q *  sin(my_beta) * cos(my_alpha); % my_alpha is always less than pi/2
                         q_y  = p_old(2) + p_sign(2)* q * sin(my_beta) * sin(abs(my_alpha));
