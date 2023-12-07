@@ -45,15 +45,8 @@ end
 
 % --- Executes just before scara_robot is made visible.
 function scara_robot_OpeningFcn(hObject, eventdata, handles, varargin)
-% This function has no output args, see OutputFcn.
-% hObject    handle to figure
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to scara_robot (see VARARGIN)
-
 % Choose default command line output for scara_robot
 handles.output = hObject;
-
 % Update handles structure
 guidata(hObject, handles);
 set(handles.Trajectory_table, 'visible', 'off');
@@ -258,118 +251,39 @@ set(handles.Show_Joints_table, 'visible', 'on');
 
 
 function q_max_value_Callback(hObject, eventdata, handles)
-% hObject    handle to q_max_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of q_max_value as text
-%        str2double(get(hObject,'String')) returns contents of q_max_value as a double
-
-
 % --- Executes during object creation, after setting all properties.
 function q_max_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to q_max_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-
 
 function v_max_value_Callback(hObject, eventdata, handles)
-% hObject    handle to v_max_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of v_max_value as text
-%        str2double(get(hObject,'String')) returns contents of v_max_value as a double
-
-
 % --- Executes during object creation, after setting all properties.
 function v_max_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to v_max_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-
 
 function a_max_value_Callback(hObject, eventdata, handles)
-% hObject    handle to a_max_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of a_max_value as text
-%        str2double(get(hObject,'String')) returns contents of a_max_value as a double
-
-
 % --- Executes during object creation, after setting all properties.
 function a_max_value_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to a_max_value (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-
-% --- Executes on selection change in Trajectory_select.
 function Trajectory_select_Callback(hObject, eventdata, handles)
-% hObject    handle to Trajectory_select (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns Trajectory_select contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from Trajectory_select
-
-
 % --- Executes during object creation, after setting all properties.
 function Trajectory_select_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to Trajectory_select (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: popupmenu controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-
-% --- Executes on selection change in Path_Planning_select.
 function Path_Planning_select_Callback(hObject, eventdata, handles)
-% hObject    handle to Path_Planning_select (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns Path_Planning_select contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from Path_Planning_select
-
-
 % --- Executes during object creation, after setting all properties.
 function Path_Planning_select_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to Path_Planning_select (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: popupmenu controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
 
 % --- Executes on button press in Plot_button.
 function Plot_button_Callback(hObject, eventdata, handles)
@@ -389,22 +303,8 @@ d(2) = str2double(handles.d2_val.String);
 
 
 function Pos_X_Desire_Callback(hObject, eventdata, handles)
-% hObject    handle to Pos_X_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of Pos_X_Desire as text
-%        str2double(get(hObject,'String')) returns contents of Pos_X_Desire as a double
-
-
 % --- Executes during object creation, after setting all properties.
 function Pos_X_Desire_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to Pos_X_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -412,68 +312,23 @@ end
 
 
 function Pos_Z_Desire_Callback(hObject, eventdata, handles)
-% hObject    handle to Pos_Z_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of Pos_Z_Desire as text
-%        str2double(get(hObject,'String')) returns contents of Pos_Z_Desire as a double
-
-
 % --- Executes during object creation, after setting all properties.
 function Pos_Z_Desire_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to Pos_Z_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-
 
 function Pos_Y_Desire_Callback(hObject, eventdata, handles)
-% hObject    handle to Pos_Y_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of Pos_Y_Desire as text
-%        str2double(get(hObject,'String')) returns contents of Pos_Y_Desire as a double
-
-
 % --- Executes during object creation, after setting all properties.
 function Pos_Y_Desire_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to Pos_Y_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
 
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-
-
 function Pos_Yaw_Desire_Callback(hObject, eventdata, handles)
-% hObject    handle to Pos_Yaw_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of Pos_Yaw_Desire as text
-%        str2double(get(hObject,'String')) returns contents of Pos_Yaw_Desire as a double
-
-
 % --- Executes during object creation, after setting all properties.
 function Pos_Yaw_Desire_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to Pos_Yaw_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -481,22 +336,8 @@ end
 
 
 function Yaw_Desire_Callback(hObject, eventdata, handles)
-% hObject    handle to Yaw_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of Yaw_Desire as text
-%        str2double(get(hObject,'String')) returns contents of Yaw_Desire as a double
-
-
 % --- Executes during object creation, after setting all properties.
 function Yaw_Desire_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to Yaw_Desire (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
