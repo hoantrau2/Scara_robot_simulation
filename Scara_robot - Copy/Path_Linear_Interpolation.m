@@ -108,9 +108,9 @@ function Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                         q2dot(i) = -a_max + jerk*(t(i)-t4);
                     end            
                         % Calculate and plot q_x, q_y, q_z
-                        q_x  = p_old(1) + p_sign(1) * q *  sin(my_beta) * cos(my_alpha); % my_alpha is always less than pi/2
-                        q_y  = p_old(2) + p_sign(2)* q * sin(my_beta) * sin(abs(my_alpha));
-                        q_z  = p_old(3) + p_sign(3) * q *  abs( cos(my_beta));
+                        q_x  = p_old(1) + p_sign(1) *  q(i) *  sin(my_beta) * cos(my_alpha); % my_alpha is always less than pi/2
+                        q_y  = p_old(2) + p_sign(2)*  q(i) * sin(my_beta) * sin(abs(my_alpha));
+                        q_z  = p_old(3) + p_sign(3) *  q(i) *  abs( cos(my_beta));
 
                         % Calculate and plot q_x_dot, q_y_dot, q_z_dot
                         q_x_dot  = p_sign(1)* qdot * sin(my_beta) * cos(my_alpha);
@@ -208,7 +208,7 @@ function Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
             else
                 v_max_need = sqrt(q_max*a_max);
                 set(handles.v_max_value,'string',num2str(v_max_need-0.0005));
-                Trajectory(handles,a,alpha,d,theta)   
+                Trajectory_planning(handles,a,alpha,d,theta,opacity);  
             end
         end
 
@@ -336,7 +336,7 @@ function Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
             else
                 v_max_need = sqrt(q_max*a_max);
                 set(handles.v_max_value,'string',num2str(v_max_need-0.0005));
-                Trajectory(handles,a,alpha,d,theta)   
+                Trajectory_planning(handles,a,alpha,d,theta,opacity);   
             end
         end
     end 

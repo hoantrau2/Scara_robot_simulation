@@ -4,7 +4,7 @@ function Trajectory_planning(handles,a,alpha,d,theta,opacity)
   
     if strcmp(Path_planning_type,'Linear_Interpolation')
        Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity);
-    elseif strcmp(Path_planning_type,'Circular_Interpolation_2D')
+    elseif strcmp(path_planning_type,'Circular_Interpolation_2D')
        Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
     elseif strcmp(Path_planning_type,'Circular_Interpolation_3D')
        Path_Circular_Interpolation_3D(handles,a,alpha,d,theta,opacity);
