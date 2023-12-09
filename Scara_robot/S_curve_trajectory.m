@@ -1,5 +1,7 @@
-function [q, qdot, q2dot, t]=S_curve_trajectory(a_max,v_max,v_max)
- if (v_max <= sqrt(q_max*a_max/2))
+function [q, qdot, q2dot, t]=S_curve_trajectory(a_max,v_max,q_max)
+ if (v_max >= sqrt(q_max*a_max/2))
+     v_max = sqrt(q_max*a_max);
+ end
                 t1 = v_max/a_max;
                 t2 = 2*t1;
                 t3 = q_max/v_max;

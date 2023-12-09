@@ -75,38 +75,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
     if q_max ~= 0
 %% S curve Trajectory 
  if (strcmp(Trajectory_type,'S_curve'))
-                %Calulate profile
-                if (v_max <= sqrt(q_max*a_max/2))
-                t1 = v_max/a_max;
-                t2 = 2*t1;
-                t3 = q_max/v_max;
-                t4 = t3 + t1;
-                te = t3 + t2;
-                jerk = a_max/t1;
-                N = 50;
-                t = linspace(0,te,N);
-                for i = 1:length(t)
-                    if t(i) <= t1
-                        q(i)     = jerk*t(i)^3/6;
-                        qdot(i)  = jerk*t(i)^2/2;
-                        q2dot(i) = jerk*t(i);
-                    elseif t(i) <= t2
-                        q(i)     = jerk*t1^3/6 + jerk*t1^2/2*(t(i)-t1) + a_max*(t(i)-t1)^2/2 - jerk*(t(i)-t1)^3/6;
-                        qdot(i)  = jerk*t1^2/2 + a_max*(t(i)-t1) - jerk*(t(i)-t1)^2/2;
-                        q2dot(i) = a_max - jerk*(t(i)-t1);
-                    elseif t(i) <= t3
-                        q(i)     = a_max*t1^2 + v_max*(t(i)-t2);
-                        qdot(i)  = v_max;
-                        q2dot(i) = 0;
-                    elseif t(i) <= t4
-                        q(i)     = a_max*t1^2 + v_max*(t3-t2) + v_max*(t(i)-t3) - jerk*(t(i)-t3)^3/6;
-                        qdot(i)  = v_max - jerk*(t(i)-t3)^2/2;
-                        q2dot(i) = -jerk*(t(i)-t3);
-                    elseif t(i) <= te
-                        q(i)     = q_max - jerk*(te - t(i))^3/6;
-                        qdot(i)  = v_max - jerk*(t4-t3)^2/2 - a_max*(t(i)-t4) + jerk*(t(i)-t4)^2/2;
-                        q2dot(i) = -a_max + jerk*(t(i)-t4);
-                    end            
+                        [q, qdot, q2dot, t]= S_curve_trajectory(a_max,v_max,q_max)  
                         % Calculate and plot q_x, q_y, q_z
                         q_x  = p_old(1) + p_sign(1) *  q(i) *  sin(my_beta) * cos(my_alpha); % my_alpha is always less than pi/2
                         q_y  = p_old(2) + p_sign(2)*  q(i) * sin(my_beta) * sin(abs(my_alpha));
@@ -204,13 +173,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                     handles.Yaw_value.String   = num2str(round(atan2(T_sub(2,1,4),T_sub(1,1,4))*180/pi,3));
                     Draw_robot(a,alpha,d,theta,handl-es,opacity,T_sub);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
-                end
-                 Run_Simulink(t,theta1_,theta2_, d3_, theta4_);
-            else
-                v_max_need = sqrt(q_max*a_max);
-                set(handles.v_max_value,'string',num2str(v_max_need-0.0005));
-                Trajectory_planning(handles,a,alpha,d,theta,opacity);  
-            end
+
         end
 
 %% Linear Trapezoid Trajectory   

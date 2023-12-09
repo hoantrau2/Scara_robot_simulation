@@ -62,7 +62,7 @@ myTimer = timer('Name','MyTimer',                     ...
                       'StartDelay',1,                 ... 
                       'TasksToExecute',inf,           ... 
                       'ExecutionMode','fixedSpacing', ...
-                      'TimerFcn',{@timerCallback,handles}); 
+                      'TimerFcn',{@timerCallback,handles, t}); 
                  
 Forward_button_Callback(hObject, eventdata, handles);
 start(myTimer);
@@ -293,10 +293,3 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-function timerCallback(hObject,event,handles)
-   persistent index
-   
-   if isempty(index)
-    index = 1;
-   end
-   index = index +1
