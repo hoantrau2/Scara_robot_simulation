@@ -84,7 +84,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                 t4 = t3 + t1;
                 te = t3 + t2;
                 jerk = a_max/t1;
-                N = 10;
+                N = 50;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= t1
@@ -203,21 +203,22 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                     handles.Pos_Y.String = num2str(round(T_sub(2,4,4),3));
                     handles.Pos_Z.String = num2str(round(T_sub(3,4,4),3));
                     handles.Yaw_value.String   = num2str(round(atan2(T_sub(2,1,4),T_sub(1,1,4))*180/pi,3));
-                    Draw_robot(a,alpha,d,theta,handles,opacity,T_sub);
+                    Draw_robot(a,alpha,d,theta,handl-es,opacity,T_sub);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
+
                 end
-                  Run_Simulink(t,theta1_,theta2_, d3_, theta4_); 
  end
+
 %% Linear Trapezoid Trajectory   
         if (strcmp(Trajectory_type,'LSPB'))
+            %Calulate profile
             if (v_max >= sqrt(q_max*a_max))
                  v_max = sqrt(q_max*a_max);
             end
-            %Calulate profile
                 tb = v_max/a_max;
                 tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
                 te = tb + tm;
-                N = 10;
+                N = 50;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= tb
@@ -280,6 +281,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                         two_dot = [0; 0; 0; 0];
                     end
                     pause(0.01);
+%                     Plot(q0, qq, qq_dot, qq_2dot, T_sub, t(1:i), t(1:i-1), t(1:i-2), handles, nop_dot, one_dot, two_dot);
                     plot(handles.q_graph,t(1:i),q,'linewidth',2);
                     grid(handles.q_graph,'on'); 
                     plot(handles.q_dot_graph,t(1:i),qdot,'linewidth',2);
@@ -330,9 +332,10 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                     Draw_robot(a,alpha,d,theta,handles,opacity,T_sub);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                 end
-                Run_Simulink(t,theta1_,theta2_, d3_, theta4_);  
+%                 Run_Simulink(t,theta1_,theta2_, d3_, theta4_);  
             end
-    end
+        end
+    end 
         hold on;
         msgbox('Path Linear Interpolation completed'); 
 end

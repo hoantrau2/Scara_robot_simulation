@@ -17,7 +17,6 @@ function varargout = scara_robot(varargin)
 % Edit the above text to modify the response to help scara_robot
 % Last Modified by GUIDE v2.5 07-Dec-2023 01:43:00
 % Begin initialization code - DO NOT EDIT
-
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
@@ -42,7 +41,7 @@ function scara_robot_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
-set(handles.Trajectory_table, 'visible', 'off');
+set(handles.Trajectory_table, 'visible', 'on');
 set(handles.End_effector_table, 'visible', 'off');
 set(handles.Show_Joints_table, 'visible', 'off');
 global a alpha d theta opacity T myTimer;
@@ -55,18 +54,8 @@ a     = [a1    ;   a2   ;  0  ;    0   ];
 alpha = [0     ;   0    ;  pi  ;   0   ];
 d     = [d1    ;   d2   ;  0  ;  0   ];
 theta = [0     ;    0   ;  0  ;    0   ];
-opacity = str2double(handles.Opac_val.String);
-
-myTimer = timer('Name','MyTimer',                     ...
-                      'Period',0.02,                 ... 
-                      'StartDelay',1,                 ... 
-                      'TasksToExecute',inf,           ... 
-                      'ExecutionMode','fixedSpacing', ...
-                      'TimerFcn',{@timerCallback,handles, t}); 
-                 
+opacity = str2double(handles.Opac_val.String);   
 Forward_button_Callback(hObject, eventdata, handles);
-start(myTimer);
-
 
 % --- Outputs from this function are returned to the command line.
 function varargout = scara_robot_OutputFcn(hObject, eventdata, handles) 

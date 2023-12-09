@@ -61,8 +61,10 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
     if q_max ~= 0
 %% S curve Trajectory 
  if (strcmp(Trajectory_type,'S_curve'))
-                     %Calulate profile
-                if (v_max <= sqrt(q_max*a_max/2))
+      if (v_max >= sqrt(q_max*a_max/2))
+      v_max = sqrt(q_max*a_max/2);
+      end
+               %Calulate profile
                 t1 = v_max/a_max;
                 t2 = 2*t1;
                 t3 = q_max/v_max;
@@ -194,18 +196,16 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                     handles.Yaw_value.String   = num2str(round(atan2(T_sub(2,1,4),T_sub(1,1,4))*180/pi,3));
                     Draw_robot(a,alpha,d,theta,handles,opacity,T_sub);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
-                end
-            else
-                v_max_need = sqrt(q_max*a_max);
-                set(handles.v_max_value,'string',num2str(v_max_need-0.0005));
-                Trajectory_planning(handles,a,alpha,d,theta,opacity);  
-            end
+                end  
+                Run_Simulink(t,theta1_,theta2_, d3_, theta4_); 
         end
 
 %% Linear Trapezoid Trajectory   
         if (strcmp(Trajectory_type,'LSPB'))
+            if (v_max >= sqrt(q_max*a_max))
+                 v_max = sqrt(q_max*a_max);
+            end
             %Calulate profile
-            if (v_max <= sqrt(q_max*a_max))
                 tb = v_max/a_max;
                 tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
                 te = tb + tm;
@@ -326,13 +326,9 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                     Draw_robot(a,alpha,d,theta,handles,opacity,T_sub);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                 end
-            else
-                v_max_need = sqrt(q_max*a_max);
-                set(handles.v_max_value,'string',num2str(v_max_need-0.0005));
-                Trajectory_planning(handles,a,alpha,d,theta,opacity);
-            end
+                Run_Simulink(t,theta1_,theta2_, d3_, theta4_); 
         end
     end 
         hold on;
-        msgbox('Path Linear Interpolation completed'); 
+        msgbox('Path Circular Interpolation 2D completed'); 
 end
