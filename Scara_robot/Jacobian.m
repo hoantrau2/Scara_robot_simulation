@@ -1,7 +1,6 @@
 function q_dot = Jacobian(T,qe_dot)
-%     T = Transformation_matrix(a,alpha,d,theta);
     z0 = [0; 0; 1];
-    p0 = [0; 0; 0];
+    p0 = [0; 0; 0]
     
     z1 = T(1:3,3,1);  p1 = T(1:3,4,1);
     z2 = T(1:3,3,2);  p2 = T(1:3,4,2);

@@ -1,5 +1,5 @@
 function Config_axes(handles)
-%% Trajectory
+%% axes of Trajectory planning
     cla(handles.q_graph,'reset');
     grid(handles.q_graph,'on'); 
     hold(handles.q_graph,'on'); 
@@ -132,7 +132,6 @@ function Config_axes(handles)
     hold(handles.d3_2dot_graph,'on'); 
     str2='$$a_{d_3(m^2/s)}$$';
     ylabel(handles.d3_2dot_graph,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
-
 
     cla(handles.theta4_graph,'reset');
     grid(handles.theta4_graph,'on'); 

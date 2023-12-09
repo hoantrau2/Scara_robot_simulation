@@ -17,7 +17,6 @@ pause(0.001);
 T = Transformation_matrix(a,alpha,sub_d,sub_theta,handles,opacity);
 Draw_robot(a,alpha,sub_d,sub_theta,handles,opacity,T);
 %In a Scara robot, only 4 parameters are of interest: X, Y, Z, and Yaw. 
-%In this case, Roll and Pitch are both equal to zero
 handles.Pos_X.String = num2str(round(T(1,4,4),3));
 handles.Pos_Y.String = num2str(round(T(2,4,4),3));
 handles.Pos_Z.String = num2str(round(T(3,4,4),3));

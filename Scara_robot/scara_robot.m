@@ -1,20 +1,8 @@
 function varargout = scara_robot(varargin)
 % SCARA_ROBOT MATLAB code for scara_robot.fig
 % SCARA_ROBOT, by itself, creates a new SCARA_ROBOT or raises the existing
-%      singleton*.
-%      H = SCARA_ROBOT returns the handle to a new SCARA_ROBOT or the handle to
-%      the existing singleton*.
-%      SCARA_ROBOT('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in SCARA_ROBOT.M with the given input arguments.
-%      SCARA_ROBOT('Property','Value',...) creates a new SCARA_ROBOT or raises the
-%      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before scara_robot_OpeningFcn gets called.  An
-%      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to scara_robot_OpeningFcn via varargin.
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
-%      instance to run (singleton)".
-% See also: GUIDE, GUIDATA, GUIHANDLES
-% Edit the above text to modify the response to help scara_robot
+%     Created on: DEC 1, 2023
+%      Author: NGOC HOAN
 % Last Modified by GUIDE v2.5 07-Dec-2023 01:43:00
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;

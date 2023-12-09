@@ -25,13 +25,13 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
     O_cir = [Pc(1) Pc(2) p_z];
     %Radius of the circle
     r = sqrt((p_x_old -  O_cir(1))^2 + (p_y_old - O_cir(2))^2);
-    %Boundary angles
+    %Caculate Boundary angles
     theta1 = atan2(p_y_old - O_cir(2) , p_x_old - O_cir(1));
     theta3 = atan2(p_y - O_cir(2) , p_x - O_cir(1));
     %Lenght max arc
     q_max = r*abs( theta3 - theta1);
     handles.q_max_value.String  = num2str(round(q_max,3));
-%% plot p, v, a
+%% Declare variable
     q2dot =[];
     qdot = [];
     q = [];

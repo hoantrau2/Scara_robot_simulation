@@ -49,7 +49,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
     else
         my_beta = atan(sqrt((p_x-p_x_old)^2+(p_y-p_y_old)^2)/(p_z - p_z_old))+pi;
     end
-%% plot p, v, a
+%% Declare variable
     q2dot =[];
     qdot = [];
     q = [];
@@ -207,7 +207,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                 end
                   Run_Simulink(t,theta1_,theta2_, d3_, theta4_); 
- end
+         end
 %% Linear Trapezoid Trajectory   
         if (strcmp(Trajectory_type,'LSPB'))
             if (v_max >= sqrt(q_max*a_max))
@@ -331,7 +331,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                 end
                 Run_Simulink(t,theta1_,theta2_, d3_, theta4_);  
-            end
+          end
     end
         hold on;
         msgbox('Path Linear Interpolation completed'); 
