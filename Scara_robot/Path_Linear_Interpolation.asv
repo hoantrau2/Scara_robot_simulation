@@ -1,4 +1,4 @@
-function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
+function Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
 %%
     % Old values
     p_x_old = str2double(get(handles.Pos_X,'String'));
@@ -155,6 +155,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                     end
                     pause(0.01);
 %                     Plot(q0, qq, qq_dot, qq_2dot, T_sub, t(1:i), t(1:i-1), t(1:i-2), handles, nop_dot, one_dot, two_dot);
+                    Run_Simulink(t,theta1_,theta2_, d3, theta4)
                     plot(handles.q_graph,t(1:i),q,'linewidth',2);
                     grid(handles.q_graph,'on'); 
                     plot(handles.q_dot_graph,t(1:i),qdot,'linewidth',2);
@@ -202,10 +203,9 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                     handles.Pos_Y.String = num2str(round(T_sub(2,4,4),3));
                     handles.Pos_Z.String = num2str(round(T_sub(3,4,4),3));
                     handles.Yaw_value.String   = num2str(round(atan2(T_sub(2,1,4),T_sub(1,1,4))*180/pi,3));
-                    Draw_robot(a,alpha,d,theta,handl-es,opacity,T_sub);
+                    Draw_robot(a,alpha,d,theta,handles,opacity,T_sub);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                 end
-                 Run_Simulink(t,theta1_,theta2_, d3_, theta4_);
             else
                 v_max_need = sqrt(q_max*a_max);
                 set(handles.v_max_value,'string',num2str(v_max_need-0.0005));
@@ -220,7 +220,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                 tb = v_max/a_max;
                 tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
                 te = tb + tm;
-                N = 50;
+                N = 70;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= tb
@@ -334,7 +334,6 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                     Draw_robot(a,alpha,d,theta,handles,opacity,T_sub);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                 end
-%                 Run_Simulink(t,theta1_,theta2_, d3_, theta4_);
             else
                 v_max_need = sqrt(q_max*a_max);
                 set(handles.v_max_value,'string',num2str(v_max_need-0.0005));

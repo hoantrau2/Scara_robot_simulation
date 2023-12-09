@@ -44,7 +44,7 @@ handles.output = hObject;
 guidata(hObject, handles);
 set(handles.Trajectory_table, 'visible', 'off');
 set(handles.End_effector_table, 'visible', 'off');
-% set(handles.Show_Joints_table, 'visible', 'on');
+set(handles.Show_Joints_table, 'visible', 'off');
 global a alpha d theta opacity T;
 a1 = str2double(handles.a1_val.String);
 a2 = str2double(handles.a2_val.String);
@@ -231,7 +231,6 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 function Trajectory_select_Callback(hObject, eventdata, handles)
-% --- Executes during object creation, after setting all properties.
 function Trajectory_select_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
@@ -283,3 +282,4 @@ function Yaw_Desire_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+

@@ -45,7 +45,7 @@ guidata(hObject, handles);
 set(handles.Trajectory_table, 'visible', 'off');
 set(handles.End_effector_table, 'visible', 'off');
 set(handles.Show_Joints_table, 'visible', 'off');
-global a alpha d theta opacity T;
+global a alpha d theta opacity T myTimer;
 a1 = str2double(handles.a1_val.String);
 a2 = str2double(handles.a2_val.String);
 d1 = str2double(handles.d1_val.String);
@@ -56,7 +56,17 @@ alpha = [0     ;   0    ;  pi  ;   0   ];
 d     = [d1    ;   d2   ;  0  ;  0   ];
 theta = [0     ;    0   ;  0  ;    0   ];
 opacity = str2double(handles.Opac_val.String);
+
+myTimer = timer('Name','MyTimer',                     ...
+                      'Period',0.02,                 ... 
+                      'StartDelay',1,                 ... 
+                      'TasksToExecute',inf,           ... 
+                      'ExecutionMode','fixedSpacing', ...
+                      'TimerFcn',{@timerCallback,handles}); 
+                 
 Forward_button_Callback(hObject, eventdata, handles);
+start(myTimer);
+
 
 % --- Outputs from this function are returned to the command line.
 function varargout = scara_robot_OutputFcn(hObject, eventdata, handles) 
@@ -282,3 +292,11 @@ function Yaw_Desire_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+function timerCallback(hObject,event,handles)
+   persistent index
+   
+   if isempty(index)
+    index = 1;
+   end
+   index = index +1

@@ -1,0 +1,1 @@
+function [update_theta, update_d]=S_curve_trajectory(amax,alpha,d,theta,handles,opacity)
