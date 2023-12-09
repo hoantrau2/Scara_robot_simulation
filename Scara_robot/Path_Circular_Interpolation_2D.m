@@ -69,7 +69,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                 t4 = t3 + t1;
                 te = t3 + t2;
                 jerk = a_max/t1;
-                N = 10;
+                N = 50;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= t1
@@ -142,8 +142,9 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                     else
                         two_dot = [0; 0; 0; 0];
                     end
+                    
                     pause(0.01);
-%                     Plot(q0, qq, qq_dot, qq_2dot, T_sub, t(1:i), t(1:i-1), t(1:i-2), handles, nop_dot, one_dot, two_dot);
+%                   Plot(q0, qq, qq_dot, qq_2dot, T_sub, t(1:i), t(1:i-1), t(1:i-2), handles, nop_dot, one_dot, two_dot);
                     plot(handles.q_graph,t(1:i),q,'linewidth',2);
                     grid(handles.q_graph,'on'); 
                     plot(handles.q_dot_graph,t(1:i),qdot,'linewidth',2);
@@ -208,7 +209,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                 tb = v_max/a_max;
                 tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
                 te = tb + tm;
-                N = 10;
+                N = 70;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= tb

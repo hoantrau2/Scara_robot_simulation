@@ -75,7 +75,7 @@ function Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
     if q_max ~= 0
 %% S curve Trajectory 
  if (strcmp(Trajectory_type,'S_curve'))
-                     %Calulate profile
+                %Calulate profile
                 if (v_max <= sqrt(q_max*a_max/2))
                 t1 = v_max/a_max;
                 t2 = 2*t1;
@@ -83,7 +83,7 @@ function Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                 t4 = t3 + t1;
                 te = t3 + t2;
                 jerk = a_max/t1;
-                N = 10;
+                N = 50;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= t1
@@ -219,7 +219,7 @@ function Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                 tb = v_max/a_max;
                 tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
                 te = tb + tm;
-                N = 10;
+                N = 70;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= tb
