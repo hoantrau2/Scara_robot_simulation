@@ -1,5 +1,5 @@
 function [T_new, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,yaw,x,y,z,handles,opacity)
-T = Transformation_matrix(a,alpha,d,theta);
+T = Transformation_matrix(a,alpha,d,theta,handles,opacity);
 flag_error = 0;
 % calculate d3
 d(3) = d(1) + d(2) - z;
@@ -55,10 +55,10 @@ end
 %              0             0           1];
 %    R_4to3 = inv(T(1:3, 1:3, 3))*R_4to0;
 %    theta(4) = atan2(R_4to3(2,1),R_4to3(1,1));
-theta(4) = -yaw + theta(1) + theta(2);
+ theta(4) = -yaw + theta(1) + theta(2);
 Infor_sub = [flag_error; theta(1);theta(2); d(3); theta(4)];
 d(3) = -d(3);
-T_new = Transformation_matrix(a,alpha,d,theta);
+T_new = Transformation_matrix(a,alpha,d,theta,handles,opacity);
 Draw_robot(a,alpha,d,theta,handles,opacity,T_new);
 handles.Theta1_val.String = num2str(round(theta(1),3)*180/pi);handles.sliderTheta1.Value = str2double(handles.Theta1_val.String);
 handles.Theta2_val.String = num2str(round(theta(2),3)*180/pi);handles.sliderTheta2.Value = str2double(handles.Theta2_val.String);

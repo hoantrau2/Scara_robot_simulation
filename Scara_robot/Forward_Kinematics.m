@@ -14,7 +14,7 @@ sub_theta(2) = sub_theta(2)+(pre_theta2 - theta(2))/velocity;
 sub_d(3) = sub_d(3)+(-pre_d3 - d(3))/velocity;
 sub_theta(4) = sub_theta(4)+(pre_theta4 - theta(4))/velocity;
 pause(0.001);
-T = Transformation_matrix(a,alpha,sub_d,sub_theta);
+T = Transformation_matrix(a,alpha,sub_d,sub_theta,handles,opacity);
 Draw_robot(a,alpha,sub_d,sub_theta,handles,opacity,T);
 %In a Scara robot, only 4 parameters are of interest: X, Y, Z, and Yaw. 
 %In this case, Roll and Pitch are both equal to zero
