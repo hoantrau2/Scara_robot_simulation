@@ -113,8 +113,8 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                         q_y_2dot = (O_cir(1) + r*cos(th));
                         q_z_2dot = 0;
                     
-                    [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
-                    plot3(handles.axes1,q_x(i),q_y(i),q_z(i)-30,'b','linewidth',2);
+                      [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
+                    plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                     if Infor_sub(1)
                         break
                     end
@@ -144,51 +144,49 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                     else
                         two_dot = [0; 0; 0; 0];
                     end
-                    
                     pause(0.01);
-%                   Plot(q0, qq, qq_dot, qq_2dot, T_sub, t(1:i), t(1:i-1), t(1:i-2), handles, nop_dot, one_dot, two_dot);
-                    plot(handles.q_graph,t(1:i),q,'linewidth',2);
+                    plot(handles.q_graph,t(1:i),q,'linewidth',2,'color', 'red');
                     grid(handles.q_graph,'on'); 
-                    plot(handles.q_dot_graph,t(1:i),qdot,'linewidth',2);
+                    plot(handles.q_dot_graph,t(1:i),qdot,'linewidth',2,'color', 'red');
                     grid(handles.q_dot_graph,'on'); 
-                    plot(handles.q_2dot_graph,t(1:i),q2dot,'linewidth',2);
+                    plot(handles.q_2dot_graph,t(1:i),q2dot,'linewidth',2,'color', 'red');
                     grid(handles.q_2dot_graph,'on'); 
 
-                    plot(handles.q_x,t(1:i),q_x,'linewidth',2);
+                    plot(handles.q_x,t(1:i),q_x,'linewidth',2,'color', 'red');
                     grid(handles.q_x,'on'); 
-                    plot(handles.v_x,t(1:i),q_x_dot,'linewidth',2);
+                    plot(handles.v_x,t(1:i),q_x_dot,'linewidth',2,'color', 'red');
                     grid(handles.v_x,'on'); 
-                    plot(handles.a_x,t(1:i),q_x_2dot,'linewidth',2);
+                    plot(handles.a_x,t(1:i),q_x_2dot,'linewidth',2,'color', 'red');
                     grid(handles.a_x,'on'); 
 
-                    plot(handles.q_y,t(1:i),q_y,'linewidth',2);
+                    plot(handles.q_y,t(1:i),q_y,'linewidth',2,'color', 'red');
                     grid(handles.q_y,'on'); 
-                    plot(handles.v_y,t(1:i),q_y_dot,'linewidth',2);
+                    plot(handles.v_y,t(1:i),q_y_dot,'linewidth',2,'color', 'red');
                     grid(handles.v_y,'on'); 
-                    plot(handles.a_y,t(1:i),q_y_2dot,'linewidth',2);
+                    plot(handles.a_y,t(1:i),q_y_2dot,'linewidth',2,'color', 'red');
                     grid(handles.a_y,'on'); 
 
-                    plot(handles.q_z,t(1:i),q_z,'linewidth',2);
+                    plot(handles.q_z,t(1:i),q_z,'linewidth',2,'color', 'red');
                     grid(handles.q_z,'on'); 
-                    plot(handles.v_z,t(1:i),q_z_dot,'linewidth',2);
+                    plot(handles.v_z,t(1:i),q_z_dot,'linewidth',2,'color', 'red');
                     grid(handles.v_z,'on'); 
-                    plot(handles.a_z,t(1:i),q_z_2dot,'linewidth',2);
+                    plot(handles.a_z,t(1:i),q_z_2dot,'linewidth',2,'color', 'red');
                     grid(handles.a_z,'on'); 
 
-                    plot(handles.theta1_graph,t(1:i),theta1_,'linewidth',2);
-                    plot(handles.theta2_graph,t(1:i),theta2_,'linewidth',2);
-                    plot(handles.theta4_graph,t(1:i),theta4_,'linewidth',2);
-                    plot(handles.d3_graph,t(1:i),d3_,'linewidth',2);
+                    plot(handles.theta1_graph,t(1:i),theta1_,'linewidth',2,'color', 'red');
+                    plot(handles.theta2_graph,t(1:i),theta2_,'linewidth',2,'color', 'red');
+                    plot(handles.theta4_graph,t(1:i),theta4_,'linewidth',2,'color', 'red');
+                    plot(handles.d3_graph,t(1:i),d3_,'linewidth',2,'color', 'red');
 
-                    plot(handles.theta1_dot_graph,t(1:i-1),theta1_dot,'linewidth',2);
-                    plot(handles.theta2_dot_graph,t(1:i-1),theta2_dot,'linewidth',2);
-                    plot(handles.theta4_dot_graph,t(1:i-1),theta4_dot,'linewidth',2);
-                    plot(handles.d3_dot_graph,t(1:i-1),d3_dot,'linewidth',2);
+                    plot(handles.theta1_dot_graph,t(1:i-1),theta1_dot,'linewidth',2,'color', 'red');
+                    plot(handles.theta2_dot_graph,t(1:i-1),theta2_dot,'linewidth',2,'color', 'red');
+                    plot(handles.theta4_dot_graph,t(1:i-1),theta4_dot,'linewidth',2,'color', 'red');
+                    plot(handles.d3_dot_graph,t(1:i-1),d3_dot,'linewidth',2,'color', 'red');
 
-                    plot(handles.theta1_2dot_graph,t(1:i-2),theta1_2dot,'linewidth',2);
-                    plot(handles.theta2_2dot_graph,t(1:i-2),theta2_2dot,'linewidth',2);
-                    plot(handles.theta4_2dot_graph,t(1:i-2),theta4_2dot,'linewidth',2);
-                    plot(handles.d3_2dot_graph,t(1:i-2),d3_2dot,'linewidth',2);
+                    plot(handles.theta1_2dot_graph,t(1:i-2),theta1_2dot,'linewidth',2,'color', 'red');
+                    plot(handles.theta2_2dot_graph,t(1:i-2),theta2_2dot,'linewidth',2,'color', 'red');
+                    plot(handles.theta4_2dot_graph,t(1:i-2),theta4_2dot,'linewidth',2,'color', 'red');
+                    plot(handles.d3_2dot_graph,t(1:i-2),d3_2dot,'linewidth',2,'color', 'red');
 
                     handles.Pos_X.String = num2str(round(T_sub(1,4,4),3));
                     handles.Pos_Y.String = num2str(round(T_sub(2,4,4),3));
@@ -243,8 +241,8 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                         q_y_2dot = (O_cir(1) + r*cos(th));
                         q_z_2dot = 0;
                     
-                      [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
-                    plot3(handles.axes1,q_x(i),q_y(i),q_z(i)-30,'b','linewidth',2);
+                         [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
+                    plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                     if Infor_sub(1)
                         break
                     end
@@ -275,7 +273,6 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                         two_dot = [0; 0; 0; 0];
                     end
                     pause(0.01);
-%                     Plot(q0, qq, qq_dot, qq_2dot, T_sub, t(1:i), t(1:i-1), t(1:i-2), handles, nop_dot, one_dot, two_dot);
                     plot(handles.q_graph,t(1:i),q,'linewidth',2);
                     grid(handles.q_graph,'on'); 
                     plot(handles.q_dot_graph,t(1:i),qdot,'linewidth',2);
@@ -285,24 +282,24 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
 
                     plot(handles.q_x,t(1:i),q_x,'linewidth',2);
                     grid(handles.q_x,'on'); 
-                    plot(handles.v_x,t(1:i),q_x_dot,'linewidth',2);
-                    grid(handles.v_x,'on'); 
-                    plot(handles.a_x,t(1:i),q_x_2dot,'linewidth',2);
-                    grid(handles.a_x,'on'); 
+%                     plot(handles.v_x,t(1:i),q_x_dot,'linewidth',2);
+%                     grid(handles.v_x,'on'); 
+%                     plot(handles.a_x,t(1:i),q_x_2dot,'linewidth',2);
+%                     grid(handles.a_x,'on'); 
 
                     plot(handles.q_y,t(1:i),q_y,'linewidth',2);
                     grid(handles.q_y,'on'); 
-                    plot(handles.v_y,t(1:i),q_y_dot,'linewidth',2);
-                    grid(handles.v_y,'on'); 
-                    plot(handles.a_y,t(1:i),q_y_2dot,'linewidth',2);
-                    grid(handles.a_y,'on'); 
+%                     plot(handles.v_y,t(1:i),q_y_dot,'linewidth',2);
+%                     grid(handles.v_y,'on'); 
+%                     plot(handles.a_y,t(1:i),q_y_2dot,'linewidth',2);
+%                     grid(handles.a_y,'on'); 
 
                     plot(handles.q_z,t(1:i),q_z,'linewidth',2);
                     grid(handles.q_z,'on'); 
-                    plot(handles.v_z,t(1:i),q_z_dot,'linewidth',2);
-                    grid(handles.v_z,'on'); 
-                    plot(handles.a_z,t(1:i),q_z_2dot,'linewidth',2);
-                    grid(handles.a_z,'on'); 
+%                     plot(handles.v_z,t(1:i),q_z_dot,'linewidth',2);
+%                     grid(handles.v_z,'on'); 
+%                     plot(handles.a_z,t(1:i),q_z_2dot,'linewidth',2);
+%                     grid(handles.a_z,'on'); 
 
                     plot(handles.theta1_graph,t(1:i),theta1_,'linewidth',2);
                     plot(handles.theta2_graph,t(1:i),theta2_,'linewidth',2);

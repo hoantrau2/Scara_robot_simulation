@@ -18,6 +18,10 @@ end
 
 % calculate theta(2)
 c2 = (x^2 + y^2 -a(1)^2 - a(2)^2)/((2*a(1)*a(2)));
+if (c2 >1)
+    c2=1;
+    disp('singularity');
+end
 theta(2) =  atan2(sqrt(1-c2^2),c2);
 if (theta(2) < -145*pi/180)
     msgbox('The new theta(2) is out of range theta(2) < -145', 'Notice', 'modal');
@@ -35,6 +39,10 @@ end
 % calculate theta(1)
 denominator = a(1)^2 + a(2)^2 + 2*a(1)*a(2)*cos(theta(2));
 s1 = (y*(a(1) + a(2)*cos(theta(2))) - x*a(2)*sin(theta(2)))/denominator;
+if (s1 >1)
+    s1=1;
+    disp('singularity');
+end
 theta(1)  = atan2(s1,sqrt(1-s1^2));
 if (theta(1) < -125*pi/180)
     msgbox('The new theta1 is out of range theta(1) < -125', 'Notice', 'modal');

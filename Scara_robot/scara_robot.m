@@ -1,6 +1,5 @@
 function varargout = scara_robot(varargin)
 % SCARA_ROBOT MATLAB code for scara_robot.fig
-% SCARA_ROBOT, by itself, creates a new SCARA_ROBOT or raises the existing
 %     Created on: DEC 1, 2023
 %      Author: NGOC HOAN
 % Last Modified by GUIDE v2.5 07-Dec-2023 01:43:00
@@ -15,7 +14,6 @@ gui_State = struct('gui_Name',       mfilename, ...
 if nargin && ischar(varargin{1})
     gui_State.gui_Callback = str2func(varargin{1});
 end
-
 if nargout
     [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
 else
