@@ -116,7 +116,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                       [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                     if Infor_sub(1)
-                        break
+                        disp('Have the parameters exceed the specified value');
                     end
                     %Caculate derivative parameters
                     theta1_ = [theta1_;rad2deg(Infor_sub(2))];
@@ -230,7 +230,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                          [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                     if Infor_sub(1)
-                        break
+                        disp('Have the parameters exceed the specified value');
                     end
                     %Caculate derivative parameters
                     theta1_ = [theta1_;rad2deg(Infor_sub(2))];

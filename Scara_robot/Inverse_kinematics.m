@@ -4,13 +4,13 @@ flag_error = 0;
 % calculate d3
 d(3) = d(1) + d(2) - z;
 if (d(3) < 0)
-    msgbox('The new d(3) is out of range d3 <0', 'Notice', 'modal');
+     disp('The new d(3) is out of range d3 <0');
     d(3)= 0;
     flag_error = 1;
     return
 end 
 if ( d(3) > 150)
-    msgbox('The new d(3) is out of range d3 >150', 'Notice', 'modal');
+     disp('The new d(3) is out of range d3 >150');
     d(3) = 150;
     flag_error = 1;
     return
@@ -24,13 +24,13 @@ if (c2 >1)
 end
 theta(2) =  atan2(sqrt(1-c2^2),c2);
 if (theta(2) < -145*pi/180)
-    msgbox('The new theta(2) is out of range theta(2) < -145', 'Notice', 'modal');
+    disp('The new theta(2) is out of range theta(2) < -145');
     theta(2) = -145*pi/180;
     flag_error = 1;
     return
 end
 if (theta(2) > 145*pi/180)
-    msgbox('The new theta(2) is out of range theta(2) > 145', 'Notice', 'modal');
+    disp('The new theta(2) is out of range theta(2) > 145');
     theta(2) = 145*pi/180;
     flag_error = 1;
     return
@@ -45,13 +45,13 @@ if (s1 >1)
 end
 theta(1)  = atan2(s1,sqrt(1-s1^2));
 if (theta(1) < -125*pi/180)
-    msgbox('The new theta1 is out of range theta(1) < -125', 'Notice', 'modal');
+    disp('The new theta1 is out of range theta(1) < -125');
     theta(1) =  -125*pi/180;
     flag_error = 1;
     return
 end
 if (theta(1) > 125*pi/180)
-    msgbox('The new theta1 is out of range theta(1) > 125', 'Notice', 'modal');
+    disp('The new theta1 is out of range theta(1) > 125');
     theta(1) =  125*pi/180;
     flag_error = 1;
     return

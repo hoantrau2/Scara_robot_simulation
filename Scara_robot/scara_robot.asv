@@ -179,37 +179,11 @@ end
 function Inverse_button_Callback(hObject, eventdata, handles)
 global a alpha d theta opacity T;
 yaw = str2double(handles.Yaw_value.String)*pi/180;
-
-% check singularities of x
 x = str2double(handles.Pos_X.String);
-if (z > d(1) + d(2))
-    msgbox(sprintf('z exceed the specified value: z > %f', d(1) + d(2) ));
-    z = d(1) + d(2);
-elseif (z < d(1) + d(2) -150)
-    msgbox(sprintf('z exceed the specified value: z < %f', d(1) + d(2) -150 ));
-    z = d(1) + d(2) -150;
-end
-
-% check singularities of y
 y = str2double(handles.Pos_Y.String);
-if (z > d(1) + d(2))
-    msgbox(sprintf('z exceed the specified value: z > %f', d(1) + d(2) ));
-    z = d(1) + d(2);
-elseif (z < d(1) + d(2) -150)
-    msgbox(sprintf('z exceed the specified value: z < %f', d(1) + d(2) -150 ));
-    z = d(1) + d(2) -150;
-end
-
-% check singularities of z
 z = str2double(handles.Pos_Z.String);
 if (z > d(1) + d(2))
-    msgbox(sprintf('z exceed the specified value: z > %f', d(1) + d(2) ));
-    z = d(1) + d(2);
-elseif (z < d(1) + d(2) -150)
-    msgbox(sprintf('z exceed the specified value: z < %f', d(1) + d(2) -150 ));
-    z = d(1) + d(2) -150;
-end
-
+    msgbox('z exceed the specified value %d ', ); 
 [T,malloc] = Inverse_Kinematics(a,alpha,d,theta,yaw,x,y,z,handles,opacity);
 
 function Trajectory_button_Callback(hObject, eventdata, handles)
