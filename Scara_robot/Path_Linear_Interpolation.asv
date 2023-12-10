@@ -165,10 +165,24 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
 
                     plot(handles.q_x,t(1:i),q_x,'linewidth',2);
                     grid(handles.q_x,'on'); 
+%                     plot(handles.v_x,t(1:i),q_x_dot,'linewidth',2);
+%                     grid(handles.v_x,'on'); 
+%                     plot(handles.a_x,t(1:i),q_x_2dot,'linewidth',2);
+%                     grid(handles.a_x,'on'); 
+
                     plot(handles.q_y,t(1:i),q_y,'linewidth',2);
                     grid(handles.q_y,'on'); 
+%                     plot(handles.v_y,t(1:i),q_y_dot,'linewidth',2);
+%                     grid(handles.v_y,'on'); 
+%                     plot(handles.a_y,t(1:i),q_y_2dot,'linewidth',2);
+%                     grid(handles.a_y,'on'); 
+
                     plot(handles.q_z,t(1:i),q_z,'linewidth',2);
                     grid(handles.q_z,'on'); 
+%                     plot(handles.v_z,t(1:i),q_z_dot,'linewidth',2);
+%                     grid(handles.v_z,'on'); 
+%                     plot(handles.a_z,t(1:i),q_z_2dot,'linewidth',2);
+%                     grid(handles.a_z,'on'); 
 
                     plot(handles.theta1_graph,t(1:i),theta1_,'linewidth',2);
                     plot(handles.theta2_graph,t(1:i),theta2_,'linewidth',2);
@@ -275,8 +289,18 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
 
                     plot(handles.q_x,t(1:i),q_x,'linewidth',2);
                     grid(handles.q_x,'on'); 
+%                     plot(handles.v_x,t(1:i),q_x_dot,'linewidth',2);
+%                     grid(handles.v_x,'on'); 
+%                     plot(handles.a_x,t(1:i),q_x_2dot,'linewidth',2);
+%                     grid(handles.a_x,'on'); 
+
                     plot(handles.q_y,t(1:i),q_y,'linewidth',2);
                     grid(handles.q_y,'on'); 
+%                     plot(handles.v_y,t(1:i),q_y_dot,'linewidth',2);
+%                     grid(handles.v_y,'on'); 
+%                     plot(handles.a_y,t(1:i),q_y_2dot,'linewidth',2);
+%                     grid(handles.a_y,'on'); 
+
                     plot(handles.q_z,t(1:i),q_z,'linewidth',2);
                     grid(handles.q_z,'on'); 
 

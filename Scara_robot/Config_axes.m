@@ -26,35 +26,11 @@ function Config_axes(handles)
     str2='$$q_x$$';
     ylabel(handles.q_x,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
 
-    cla(handles.v_x,'reset');
-    grid(handles.v_x,'on');
-    hold(handles.v_x,'on');
-    str2='$$v_x$$';
-    ylabel(handles.v_x,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
-
-    cla(handles.a_x,'reset');
-    grid(handles.a_x,'on');
-    hold(handles.a_x,'on');
-    str2='$$a_x$$';
-    ylabel(handles.a_x,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
-
     cla(handles.q_y,'reset');
     grid(handles.q_y,'on');
     hold(handles.q_y,'on');
     str2='$$q_y$$';
     ylabel(handles.q_y,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
-
-    cla(handles.v_y,'reset');
-    grid(handles.v_y,'on');
-    hold(handles.v_y,'on');
-    str2='$$v_y$$';
-    ylabel(handles.v_y,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
-
-    cla(handles.a_y,'reset');
-    grid(handles.a_y,'on');
-    hold(handles.a_y,'on');
-    str2='$$a_y$$';
-    ylabel(handles.a_y,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
 
     cla(handles.q_z,'reset');
     grid(handles.q_z,'on');
@@ -63,19 +39,6 @@ function Config_axes(handles)
     str2='$$q_z$$';
     ylabel(handles.q_z,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
 
-    cla(handles.v_z,'reset');
-    grid(handles.v_z,'on');
-    hold(handles.v_z,'on');
-    xlabel(handles.v_z,'time(s)');
-    str2='$$v_z$$';
-    ylabel(handles.v_z,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
-
-    cla(handles.a_z,'reset');
-    grid(handles.a_z,'on');
-    hold(handles.a_z,'on');
-    xlabel(handles.a_z,'time(s)');
-    str2='$$a_z$$';
-    ylabel(handles.a_z,str2,'interpreter','latex','fontsize',10,'fontweight','bold');
 %---------------------------------------------------------------------------------------------------------
     cla(handles.theta1_graph,'reset');
     grid(handles.theta1_graph,'on'); 
