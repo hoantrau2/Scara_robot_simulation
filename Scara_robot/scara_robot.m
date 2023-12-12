@@ -27,7 +27,7 @@ function scara_robot_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
-set(handles.Trajectory_table, 'visible', 'on');
+% set(handles.Trajectory_table, 'visible', 'on');
 set(handles.End_effector_table, 'visible', 'off');
 set(handles.Show_Joints_table, 'visible', 'off');
 global a alpha d theta opacity T myTimer;
@@ -182,34 +182,33 @@ yaw = str2double(handles.Yaw_value.String)*pi/180;
 
 % check singularities of x
 x = str2double(handles.Pos_X.String);
-if (z > d(1) + d(2))
-    msgbox(sprintf('z exceed the specified value: z > %f', d(1) + d(2) ));
-    z = d(1) + d(2);
-elseif (z < d(1) + d(2) -150)
-    msgbox(sprintf('z exceed the specified value: z < %f', d(1) + d(2) -150 ));
-    z = d(1) + d(2) -150;
-end
+% if (z > d(1) + d(2))
+%     msgbox('z exceed the specified value > ');
+%     z = d(1) + d(2);
+% elseif (z < d(1) + d(2) -150)
+%     msgbox(sprintf('z exceed the specified value: z < %f', d(1) + d(2) -150 ));
+%     z = d(1) + d(2) -150;
+% end
 
 % check singularities of y
 y = str2double(handles.Pos_Y.String);
-if (z > d(1) + d(2))
-    msgbox(sprintf('z exceed the specified value: z > %f', d(1) + d(2) ));
-    z = d(1) + d(2);
-elseif (z < d(1) + d(2) -150)
-    msgbox(sprintf('z exceed the specified value: z < %f', d(1) + d(2) -150 ));
-    z = d(1) + d(2) -150;
-end
+% if (z > d(1) + d(2))
+%     msgbox(sprintf('z exceed the specified value: z > %f', d(1) + d(2) ));
+%     z = d(1) + d(2);
+% elseif (z < d(1) + d(2) -150)
+%     msgbox(sprintf('z exceed the specified value: z < %f', d(1) + d(2) -150 ));
+%     z = d(1) + d(2) -150;
+% end
 
 % check singularities of z
 z = str2double(handles.Pos_Z.String);
-if (z > d(1) + d(2))
-    msgbox(sprintf('z exceed the specified value: z > %f', d(1) + d(2) ));
-    z = d(1) + d(2);
-elseif (z < d(1) + d(2) -150)
-    msgbox(sprintf('z exceed the specified value: z < %f', d(1) + d(2) -150 ));
-    z = d(1) + d(2) -150;
-end
-
+% if (z > d(1) + d(2))
+%     msgbox(sprintf('z exceed the specified value: z > %f', d(1) + d(2) ));
+%     z = d(1) + d(2);
+% elseif (z < d(1) + d(2) -150)
+%     msgbox(sprintf('z exceed the specified value: z < %f', d(1) + d(2) -150 ));
+%     z = d(1) + d(2) -150;
+% end
 [T,malloc] = Inverse_Kinematics(a,alpha,d,theta,yaw,x,y,z,handles,opacity);
 
 function Trajectory_button_Callback(hObject, eventdata, handles)

@@ -11,6 +11,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
     p_x = str2double(get(handles.Pos_X_Desire,'String'));
     p_y = str2double(get(handles.Pos_Y_Desire,'String'));
     p_z = str2double(get(handles.Pos_Z_Desire,'String'));
+    p_yaw = str2double(get(handles.Yaw_Desire,'String'));
     index_Trajectory = cellstr(get(handles.Trajectory_select, 'String'));
     Trajectory_type = index_Trajectory{get(handles.Trajectory_select, 'Value')};
     % Calculate sign
@@ -95,7 +96,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                         q(i)     = jerk*t1^3/6 + jerk*t1^2/2*(t(i)-t1) + a_max*(t(i)-t1)^2/2 - jerk*(t(i)-t1)^3/6;
                         qdot(i)  = jerk*t1^2/2 + a_max*(t(i)-t1) - jerk*(t(i)-t1)^2/2;
                         q2dot(i) = a_max - jerk*(t(i)-t1);
-                    elseif t(i) <= t3
+                    elseif t(i) <= t3       
                         q(i)     = a_max*t1^2 + v_max*(t(i)-t2);
                         qdot(i)  = v_max;
                         q2dot(i) = 0;
@@ -124,7 +125,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
 %                         q_y_2dot  = p_sign(2) * q2dot * sin(my_beta) * sin(abs(my_alpha));
 %                         q_z_2dot  = p_sign(3) * q2dot * abs( cos(my_beta));
                     
-                    [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
+                    [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,p_yaw,q_x(end),q_y(end),q_z(end),handles,opacity);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                     if Infor_sub(1)
                         disp('Have the parameters exceed the specified value');
@@ -234,7 +235,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
 %                         q_y_2dot  = p_sign(2) * q2dot * sin(my_beta) * sin(abs(my_alpha));
 %                         q_z_2dot  = p_sign(3) * q2dot * abs( cos(my_beta));
                     
-                    [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
+                    [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,p_yaw,q_x(end),q_y(end),q_z(end),handles,opacity);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                     if Infor_sub(1)
                         disp('Have the parameters exceed the specified value');

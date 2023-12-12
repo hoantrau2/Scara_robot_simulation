@@ -22,7 +22,6 @@ handles.Pos_Y.String = num2str(round(T(2,4,4),3));
 handles.Pos_Z.String = num2str(round(T(3,4,4),3));
 handles.Yaw_value.String   = num2str(round(atan2(T(2,1,4),T(1,1,4))*180/pi,3));
  end
-
 msgbox('Finished the forward kinematics movement', 'Notice', 'modal');
 update_theta = sub_theta;
 update_d = sub_d; 

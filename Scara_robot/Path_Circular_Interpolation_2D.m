@@ -12,10 +12,11 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
     p_x = str2double(get(handles.Pos_X_Desire,'String'));
     p_y = str2double(get(handles.Pos_Y_Desire,'String'));
     p_z = str2double(get(handles.Pos_Z_Desire,'String'));
+    p_yaw = str2double(get(handles.Yaw_Desire,'String'));
     index_Trajectory = cellstr(get(handles.Trajectory_select, 'String'));
     Trajectory_type = index_Trajectory{get(handles.Trajectory_select, 'Value')};
     %Find the third point to reach singularities
-    p_x_new = 850;
+    p_x_new = a(1) + a(2);
     p_y_new = 0;
 %%
     %Circle center point:
@@ -113,7 +114,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
 %                         q_y_2dot = (O_cir(1) + r*cos(th));
 %                         q_z_2dot = 0;
                     
-                      [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
+                      [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,p_yaw,q_x(end),q_y(end),q_z(end),handles,opacity);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                     if Infor_sub(1)
                         disp('Have the parameters exceed the specified value');
@@ -227,7 +228,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
 %                         q_y_2dot = (O_cir(1) + r*cos(th));
 %                         q_z_2dot = 0;
                     
-                         [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,0,q_x(end),q_y(end),q_z(end),handles,opacity);
+                         [T_sub, Infor_sub] = Inverse_Kinematics(a,alpha,d,theta,p_yaw,q_x(end),q_y(end),q_z(end),handles,opacity);
                     plot3(handles.axes1,q_x,q_y,q_z-30,'b','linewidth',2);
                     if Infor_sub(1)
                         disp('Have the parameters exceed the specified value');
