@@ -11,9 +11,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
     p_x = str2double(get(handles.Pos_X_Desire,'String'));
     p_y = str2double(get(handles.Pos_Y_Desire,'String'));
     p_z = str2double(get(handles.Pos_Z_Desire,'String'));
-    p_yaw = str2double(get(handles.Yaw_Desire,'String'));
-    index_Trajectory = cellstr(get(handles.Trajectory_select, 'String'));
-    Trajectory_type = index_Trajectory{get(handles.Trajectory_select, 'Value')};
+    p_yaw = str2double(get(handles.Yaw_Desire,'String'))*pi/180;
     % Calculate sign
        if p_x >= p_x_old
     x_sign =  1 ;
@@ -75,7 +73,6 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
     Config_axes(handles);
     if q_max ~= 0
 %% S curve Trajectory 
-%  if (strcmp(Trajectory_type,'S_curve'))
          if (handles.S_curve_select.Value == true)
      if (v_max >= sqrt(q_max*a_max/2))
      v_max = sqrt(q_max*a_max/2);
@@ -86,7 +83,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                 t4 = t3 + t1;
                 te = t3 + t2;
                 jerk = a_max/t1;
-                N = 10;
+                N = 50;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= t1
@@ -197,7 +194,6 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
                   Run_Simulink(t,theta1_,theta2_, d3_, theta4_); 
          end
 %% Linear Trapezoid Trajectory   
-%         if (strcmp(Trajectory_type,'LSPB'))
       if (handles.Trapezoidal_select.Value == true)
             if (v_max >= sqrt(q_max*a_max))
                  v_max = sqrt(q_max*a_max);
@@ -206,7 +202,7 @@ function []=Path_Linear_Interpolation(handles,a,alpha,d,theta,opacity)
             tb = v_max/a_max;
                 tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
                 te = tb + tm;
-                N = 10;
+                N = 50;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= tb

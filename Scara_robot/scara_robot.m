@@ -2,7 +2,7 @@ function varargout = scara_robot(varargin)
 % SCARA_ROBOT MATLAB code for scara_robot.fig
 %     Created on: DEC 1, 2023
 %      Author: NGOC HOAN
-% Last Modified by GUIDE v2.5 13-Dec-2023 00:57:33
+% Last Modified by GUIDE v2.5 13-Dec-2023 02:55:19
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
@@ -295,21 +295,5 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-
-
-% --- Executes on button press in Trapezoidal_select.
 function Trapezoidal_select_Callback(hObject, eventdata, handles)
-% hObject    handle to Trapezoidal_select (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of Trapezoidal_select
-
-
-% --- Executes on button press in S_curve_select.
 function S_curve_select_Callback(hObject, eventdata, handles)
-% hObject    handle to S_curve_select (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of S_curve_select

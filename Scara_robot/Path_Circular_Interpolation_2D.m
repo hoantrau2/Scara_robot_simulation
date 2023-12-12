@@ -12,9 +12,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
     p_x = str2double(get(handles.Pos_X_Desire,'String'));
     p_y = str2double(get(handles.Pos_Y_Desire,'String'));
     p_z = str2double(get(handles.Pos_Z_Desire,'String'));
-    p_yaw = str2double(get(handles.Yaw_Desire,'String'));
-    index_Trajectory = cellstr(get(handles.Trajectory_select, 'String'));
-    Trajectory_type = index_Trajectory{get(handles.Trajectory_select, 'Value')};
+    p_yaw = str2double(get(handles.Yaw_Desire,'String'))*pi/180;
     %Find the third point to reach singularities
     p_x_new = a(1) + a(2);
     p_y_new = 0;
@@ -61,7 +59,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
     Config_axes(handles);
     if q_max ~= 0
 %% S curve Trajectory 
- if (strcmp(Trajectory_type,'S_curve'))
+         if (handles.S_curve_select.Value == true)
       if (v_max >= sqrt(q_max*a_max/2))
       v_max = sqrt(q_max*a_max/2);
       end
@@ -186,7 +184,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
         end
 
 %% Linear Trapezoid Trajectory   
-        if (strcmp(Trajectory_type,'LSPB'))
+        if (handles.Trapezoidal_select.Value == true)
             if (v_max >= sqrt(q_max*a_max))
                  v_max = sqrt(q_max*a_max);
             end
@@ -194,7 +192,7 @@ function Path_Circular_Interpolation_2D(handles,a,alpha,d,theta,opacity)
                 tb = v_max/a_max;
                 tm = tb + (q_max - 2* 1/2*a_max*tb^2)/v_max;
                 te = tb + tm;
-                N = 70;
+                N = 50;
                 t = linspace(0,te,N);
                 for i = 1:length(t)
                     if t(i) <= tb
